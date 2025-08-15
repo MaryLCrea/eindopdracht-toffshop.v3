@@ -12,22 +12,24 @@ import toff.novi.eindopdrachttoffshop.mappers.UserMapper;
 
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserService service;
+    private final UserService userService;
 
-    public UserController(UserService service) {
-        
-        this.service = service;
+    public UserController(UserService userService) {
+
+        this.userService = userService;
     }
 
      @PostMapping
     public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
-        User user = this.service.createUser(userRequestDto);
+        User user = this.userService.createUser(userRequestDto);
         UserResponseDto userResponseDto = UserMapper.toResponseDto(user);
 
         URI uri = UriHelper.createUri("users", String.valueOf(user.getId()));
@@ -35,34 +37,38 @@ public class UserController {
          return ResponseEntity.created(uri).body(userResponseDto);
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<User>> getAllUsers() {
-//        return ResponseEntity.ok(this.repos.findAll());
-//    }
-//
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> getUserById(@PathVariable int id) {
-       return ResponseEntity.ok(UserMapper.toResponseDto(this.service.getSingleUser(id)));
+
+    @GetMapping("/users")
+    public List<UserResponseDto> getAllUsers() {
+        List<User> users = userService.findAll();
+
+        return users.stream()
+                .map(UserResponseDto::new)
+                .collect(Collectors.toList());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable Integer id){
+       return ResponseEntity.ok(UserMapper.toResponseDto(this.userService.getSingleUser(id)));
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<Object> deleteUser(@PathVariable Integer id) {
 
 
-//    //dob er nog niet in misschien functie met orderdatum!!
-//        @GetMapping("/after")
-//        public ResponseEntity <List<User>>getUsersAfter(@RequestParam LocalDate date) {
-//            return ResponseEntity.ok(this.repos.findByCreatedDobAfter(date));
-//        }
 
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
-//        if (this.userMap.containsKey(id)) {
-//        this.userMap.put(id,user);
-//        return ResponseEntity.ok(user);
-//    }
-//        else {
-//        return ResponseEntity.notFound().build();
-//
-//    }
-//}
-            }
+        return ResponseEntity.noContent().build();
+
+    }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Integer id, @Valid @RequestBody UserRequestDto newUser) {
+
+        UserResponseDto dto = userService.updateUser(id, newUser);
+
+        return ResponseEntity.ok().body(dto);
+    }
+
+}
+

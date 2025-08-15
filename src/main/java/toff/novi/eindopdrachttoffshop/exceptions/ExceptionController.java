@@ -1,4 +1,4 @@
-package toff.novi.eindopdrachttoffshop.exception;
+package toff.novi.eindopdrachttoffshop.exceptions;
 
 
 import org.springframework.http.HttpStatus;
