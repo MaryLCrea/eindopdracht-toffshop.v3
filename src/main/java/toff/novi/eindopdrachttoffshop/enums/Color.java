@@ -1,5 +1,5 @@
 package toff.novi.eindopdrachttoffshop.enums;
 
-public enum Health {
+public enum Color {
 
 }

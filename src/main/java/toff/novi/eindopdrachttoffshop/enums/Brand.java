@@ -1,5 +1,5 @@
 package toff.novi.eindopdrachttoffshop.enums;
 
-public enum Kitchen {
+public enum Brand {
 
 }
