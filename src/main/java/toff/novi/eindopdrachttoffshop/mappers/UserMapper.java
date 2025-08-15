@@ -12,7 +12,7 @@ public class UserMapper {
     }
 
     public static UserResponseDto toResponseDto(User user) {
-        UserResponseDto userResponseDto = new UserResponseDto();
+        UserResponseDto userResponseDto = new UserResponseDto(user);
         userResponseDto.id = user.getId();
         userResponseDto.name = user.getName();
         userResponseDto.email = user.getEmail();

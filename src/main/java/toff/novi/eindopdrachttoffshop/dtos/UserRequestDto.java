@@ -1,7 +1,6 @@
 package toff.novi.eindopdrachttoffshop.dtos;
 
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -16,4 +15,21 @@ public class UserRequestDto {
     @Column(unique = true)
     public int phone;
     public String password;
+
+
+    public String getName() {
+            return null;
+    }
+
+    public String getEmail() {
+        return null;
+    }
+
+    public int getPhone() {
+        return 0;
+    }
+
+    public String getPassword() {
+        return null;
+    }
 }
