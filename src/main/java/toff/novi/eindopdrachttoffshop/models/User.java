@@ -1,29 +1,26 @@
 package toff.novi.eindopdrachttoffshop.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
 
-    private static int counter = 1;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String email;
     private int phone;
     private String password;
 
+    public User(){}
+
     public User(int id, String name, String email, int phone, String password) {
-        this.id = counter++;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
-    }
-
-    public static int getCounter() {
-        return counter;
-    }
-
-    public static void setCounter(int counter) {
-        User.counter = counter;
     }
 
 
