@@ -3,7 +3,7 @@ package toff.novi.eindopdrachttoffshop.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import toff.novi.eindopdrachttoffshop.components.UriHelper;
 import toff.novi.eindopdrachttoffshop.models.User;
 import toff.novi.eindopdrachttoffshop.repositories.UserRepository;
 
@@ -28,11 +28,9 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         this.repos.save(user);
 
-        URI uri = URI.create(ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/" + user.getId()).toUriString());
+         URI uri = UriHelper.createUri("users", String.valueOf(user.getId()));
 
-        return ResponseEntity.created(uri).body(user);
+         return ResponseEntity.created(uri).body(user);
     }
 
     @GetMapping
