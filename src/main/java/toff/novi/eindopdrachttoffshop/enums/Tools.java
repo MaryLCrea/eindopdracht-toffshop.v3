@@ -1,4 +1,5 @@
 package toff.novi.eindopdrachttoffshop.enums;
 
-public class test {
+public enum Tools {
+
 }
