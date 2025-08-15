@@ -1,53 +1,51 @@
 package toff.novi.eindopdrachttoffshop.controllers;
 
-import org.springframework.http.HttpStatus;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import toff.novi.eindopdrachttoffshop.components.UriHelper;
+import toff.novi.eindopdrachttoffshop.dtos.UserRequestDto;
+import toff.novi.eindopdrachttoffshop.dtos.UserResponseDto;
 import toff.novi.eindopdrachttoffshop.models.User;
-import toff.novi.eindopdrachttoffshop.repositories.UserRepository;
+import toff.novi.eindopdrachttoffshop.services.UserService;
+import toff.novi.eindopdrachttoffshop.mappers.UserMapper;
+
 
 import java.net.URI;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserRepository repos;
+    private final UserService service;
 
-    public UserController(UserRepository repos) {
-        this.repos = repos;
+    public UserController(UserService service) {
+        
+        this.service = service;
     }
 
      @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        this.repos.save(user);
+    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
+        User user = this.service.createUser(userRequestDto);
+        UserResponseDto userResponseDto = UserMapper.toResponseDto(user);
 
-         URI uri = UriHelper.createUri("users", String.valueOf(user.getId()));
+        URI uri = UriHelper.createUri("users", String.valueOf(user.getId()));
 
-         return ResponseEntity.created(uri).body(user);
+         return ResponseEntity.created(uri).body(userResponseDto);
     }
 
-    @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(this.repos.findAll());
-    }
-
+//    @GetMapping
+//    public ResponseEntity<List<User>> getAllUsers() {
+//        return ResponseEntity.ok(this.repos.findAll());
+//    }
+//
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable int id) {
-        Optional<User> op = this.repos.findById(id);
-
-        if (op.isPresent()) {
-            return ResponseEntity.ok(op.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable int id) {
+       return ResponseEntity.ok(UserMapper.toResponseDto(this.service.getSingleUser(id)));
     }
+
+
 
 //    //dob er nog niet in misschien functie met orderdatum!!
 //        @GetMapping("/after")

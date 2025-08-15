@@ -1,0 +1,21 @@
+package toff.novi.eindopdrachttoffshop.mappers;
+
+import toff.novi.eindopdrachttoffshop.dtos.UserRequestDto;
+import toff.novi.eindopdrachttoffshop.dtos.UserResponseDto;
+import toff.novi.eindopdrachttoffshop.models.User;
+
+public class UserMapper {
+
+    public static User toEntity(UserRequestDto userRequestDto) {
+        User user = new User(userRequestDto.name, userRequestDto.email, userRequestDto.phone, userRequestDto.password);
+        return user;
+    }
+
+    public static UserResponseDto toResponseDto(User user) {
+        UserResponseDto userResponseDto = new UserResponseDto();
+        userResponseDto.id = user.getId();
+        userResponseDto.name = user.getName();
+        userResponseDto.email = user.getEmail();
+        return userResponseDto;
+    }
+}
