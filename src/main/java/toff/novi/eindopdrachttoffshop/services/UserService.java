@@ -12,23 +12,31 @@ import java.util.List;
 
 @Service
 public class UserService {
-    private final UserRepository repos;
+
+    private final UserRepository userRepository;
 
 
-    public UserService(UserRepository repos) {
-        this.repos = repos;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
+
     public User createUser(UserRequestDto userRequestDto) {
-        return this.repos.save(UserMapper.toEntity(userRequestDto));
+       if (userRepository.existsByEmail(userRequestDto.getEmail())) {
+            throw new IllegalArgumentException("Email already exists");
+        }
+
+        User user = UserMapper.toEntity(userRequestDto);
+        return userRepository.save(user);
     }
+
 
     public User getSingleUser(Integer id) {
-        return this.repos.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
+        return this.userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
 
     }
 
     public List<User> getUsers() {
-        return repos.findAll();
+        return userRepository.findAll();
     }
 
     public List<User> findAll() {
@@ -36,7 +44,7 @@ public class UserService {
     }
 
     public UserResponseDto updateUser(Integer id, UserRequestDto newUser) {
-        User existingUser = repos.findById(id)
+        User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         // Update velden van existingUser met nieuwe waarden
@@ -45,7 +53,7 @@ public class UserService {
         existingUser.setPhone(newUser.getPhone());
         existingUser.setPassword(newUser.getPassword());
 
-        User updatedUser = repos.save(existingUser);
+        User updatedUser = userRepository.save(existingUser);
         return UserMapper.toResponseDto(updatedUser);
     }
 }
