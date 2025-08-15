@@ -23,6 +23,14 @@ public class User {
         this.password = password;
     }
 
+    public User(String name, String email, int phone, String password) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+    }
+
+
 
     public void setId(int id) {
         this.id = id;
@@ -52,11 +60,7 @@ public class User {
         this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
+     public void setPassword(String password) {
         this.password = password;
     }
 
