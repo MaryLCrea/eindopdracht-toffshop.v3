@@ -5,12 +5,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 
-
 public class CartController {
 
-    @GetMapping("/cart")
-    public String cart() {
-          return "Hello World!";
-        }
+//    @GetMapping("/cart")
+//    public String cart() {
+//          return "Hello World!";
+//        }
     }
 

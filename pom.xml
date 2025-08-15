@@ -10,8 +10,7 @@
     </parent>
     <groupId>toff.novi</groupId>
     <artifactId>eindopdracht-toffshop</artifactId>
-    <version>versie 0.0.1</version>
-    <name>eindopdracht-toffshop.v1</name>
+    <version>versie 1.0</version>    <name>eindopdracht-toffshop.v1</name>
     <description>eindopdracht-toffshop.v1</description>
     <url/>
     <licenses>
