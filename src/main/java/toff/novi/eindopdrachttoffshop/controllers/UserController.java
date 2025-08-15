@@ -3,7 +3,7 @@ package toff.novi.eindopdrachttoffshop.controllers;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import toff.novi.eindopdrachttoffshop.components.UriHelper;
+import toff.novi.eindopdrachttoffshop.config.components.UriHelper;
 import toff.novi.eindopdrachttoffshop.dtos.UserRequestDto;
 import toff.novi.eindopdrachttoffshop.dtos.UserResponseDto;
 import toff.novi.eindopdrachttoffshop.models.User;
@@ -27,20 +27,20 @@ public class UserController {
         this.userService = userService;
     }
 
-     @PostMapping
+    @PostMapping
     public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
         User user = this.userService.createUser(userRequestDto);
         UserResponseDto userResponseDto = UserMapper.toResponseDto(user);
 
         URI uri = UriHelper.createUri("users", String.valueOf(user.getId()));
 
-         return ResponseEntity.created(uri).body(userResponseDto);
+        return ResponseEntity.created(uri).body(userResponseDto);
     }
 
 
     @GetMapping("/users")
     public List<UserResponseDto> getAllUsers() {
-        List<User> users = userService.findAll();
+        List<User> users = userService.getUsers();
 
         return users.stream()
                 .map(UserResponseDto::new)
@@ -48,18 +48,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> getUserById(@PathVariable Integer id){
-       return ResponseEntity.ok(UserMapper.toResponseDto(this.userService.getSingleUser(id)));
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable Integer id) {
+        return ResponseEntity.ok(UserMapper.toResponseDto(this.userService.getSingleUser(id)));
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable Integer id) {
 
-
-
-
         return ResponseEntity.noContent().build();
-
     }
 
     @PutMapping("/users/{id}")
@@ -69,6 +65,4 @@ public class UserController {
 
         return ResponseEntity.ok().body(dto);
     }
-
 }
-

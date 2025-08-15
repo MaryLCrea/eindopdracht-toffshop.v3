@@ -15,7 +15,6 @@ public class UserResponseDto {
         this.name = user.getName();
         this.email = user.getEmail();
         this.phone = user.getPhone();
-
     }
 
     public int getId() {
@@ -50,7 +49,7 @@ public class UserResponseDto {
         this.phone = phone;
     }
 
-      public void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
