@@ -1,6 +1,6 @@
 --Users
 INSERT INTO users (name, email, phone, password)
-VALUES ('Piet Puk', 'piet@email.com', 0610203040, 'secret123'), ('Tessa Puk', 'tessa@email.com', 0640506070, 'secret456');
+VALUES ('Piet Puk', 'piet@email.com', 0610203040, 'secret123'), ('Tessa Pluk', 'tessa@email.com', 0640506070, 'secret456'), ('Anna Jolie', 'anna@email.com', 0620304050, 'secret789');
 
 -- Products
 INSERT INTO products (name, description, price, category, brand, color, heel, size, stock_quantity, is_active, created_at, updated_at)
