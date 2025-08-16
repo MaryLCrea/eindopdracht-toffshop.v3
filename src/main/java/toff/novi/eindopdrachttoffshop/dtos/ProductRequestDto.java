@@ -4,17 +4,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
 import toff.novi.eindopdrachttoffshop.enums.*;
 import java.math.BigDecimal;
 
 public class ProductRequestDto {
 
     @NotBlank(message = "Product name is required")
-    @Size(max = 255, message = "Product name may contain up to 255 characters")
+    @jakarta.validation.constraints.Size(max = 255, message = "Product name may contain up to 255 characters")
     private String name;
 
-    @Size(max = 600, message = "Description may contain up to 600 characters")
+    @jakarta.validation.constraints.Size(max = 600, message = "Description may contain up to 600 characters")
     private String description;
 
     @NotNull(message = "Price is required")

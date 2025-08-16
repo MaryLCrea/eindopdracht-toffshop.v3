@@ -1,57 +1,38 @@
+--Users
 INSERT INTO users (name, email, phone, password)
 VALUES ('Piet Puk', 'piet@email.com', 0610203040, 'secret123'), ('Tessa Puk', 'tessa@email.com', 0640506070, 'secret456');
 
+-- Products
+INSERT INTO products (name, description, price, category, brand, color, heel, size, stock_quantity, is_active, created_at, updated_at)
+VALUES
+('PortDance PD025 Latin', 'Professional Latin dance shoes with suede sole and ankle strap', 129.99, 'FASHION', 'PORTDANCE', 'BLACK', 'HIGH', 'SIZE_38', 15, true, '2025-01-10 10:00:00', '2025-01-15 14:30:00'),
+('Ray Rose 825 Ballroom', 'Elegant ballroom shoes for standard dancing with leather sole', 149.99, 'FASHION', 'RAYROSE', 'NUDE', 'MEDIUM', 'SIZE_39', 12, true, '2025-01-11 09:15:00', '2025-01-14 16:45:00'),
 
--- INSERT INTO products (name, description, price, category, brand, color, heel, size, stock_quantity, is_active, created_at, updated_at)
--- VALUES
--- -- Dance shoes (FASHION category Brand, Color, Heel, Size enums)
--- ('PortDance PD025 Latin', 'Professional Latin dance shoes with suede sole and ankle strap', 129.99, 'FASHION', 'PORTDANCE', 'BLACK', 'HIGH', 'SIZE_38', 15, true, '2025-01-10 10:00:00', '2025-01-15 14:30:00'),
--- ('Ray Rose 825 Ballroom', 'Elegant ballroom shoes for standard dancing with leather sole', 149.99, 'FASHION', 'RAYROSE', 'NUDE', 'MEDIUM', 'SIZE_39', 12, true, '2025-01-11 09:15:00', '2025-01-14 16:45:00'),
--- ('Diamant 144 Practice', 'Comfortable practice shoes for daily training sessions', 89.99, 'FASHION', 'DIAMANT', 'TAN', 'LOW', 'SIZE_37', 25, true, '2025-01-12 11:20:00', '2025-01-16 12:10:00'),
--- ('Bloch Tap Flex', 'Flexible tap shoes with taps for rhythm dancing', 75.99, 'FASHION', 'BLOCH', 'BLACK', 'FLAT', 'SIZE_40', 20, true, '2025-01-13 08:30:00', '2025-01-16 15:20:00'),
--- ('Capezio Character Oxford', 'Classic character shoes with T-bar strap for theater', 95.99, 'FASHION', 'CAPEZIO', 'BROWN', 'MEDIUM', 'SIZE_36', 18, true, '2025-01-14 14:45:00', '2025-01-17 10:15:00'),
--- ('PortDance A274 Salsa', 'Salsa shoes with extra high heel for advanced dancers', 119.99, 'FASHION', 'PORTDANCE', 'RED', 'EXTRA_HIGH', 'SIZE_39', 10, true, '2025-01-15 12:30:00', '2025-01-18 09:45:00'),
---
--- -- Health products
--- ('Yoga Mat Premium', 'High-quality yoga mat with excellent grip and cushioning', 45.99, 'HEALTH', NULL, NULL, NULL, NULL, 30, true, '2025-01-08 12:00:00', '2025-01-15 09:30:00'),
--- ('Protein Powder Vanilla', 'Whey protein powder for muscle building and recovery', 29.99, 'HEALTH', NULL, NULL, NULL, NULL, 50, true, '2025-01-09 15:30:00', '2025-01-14 11:20:00'),
---
--- -- Kitchen products
--- ('Chef Knife Set', 'Professional chef knife set with wooden block and sharpener', 89.99, 'KITCHEN', NULL, NULL, NULL, NULL, 15, true, '2025-01-10 16:45:00', '2025-01-16 13:40:00'),
--- ('Coffee Machine Deluxe', 'Automatic coffee machine with milk frother and timer', 299.99, 'KITCHEN', NULL, NULL, NULL, NULL, 8, true, '2025-01-11 10:20:00', '2025-01-15 16:50:00'),
---
--- -- Tools products
--- ('Drill Set Professional', 'Complete drill set with various bits and carrying case', 79.99, 'TOOLS', NULL, NULL, NULL, NULL, 12, true, '2025-01-12 13:15:00', '2025-01-17 08:25:00');
---
--- -- Carts data (one cart per user)
--- INSERT INTO carts (user_id, created_at, updated_at)
--- VALUES(1, '2025-01-15 10:00:00', '2025-01-15 14:30:00'),
---       (2, '2025-01-14 09:15:00', '2025-01-14 16:45:00'),
---       (3, '2025-01-16 11:20:00', '2025-01-16 12:10:00'),
---       (4, '2025-01-13 08:30:00', '2025-01-16 15:20:00');
---
--- -- Order Items data with OrderItemStatus enum values
--- -- Wim's cart (userId=1, cartId=1) - Items INCART
--- INSERT INTO order_items (cart_id, order_id, product_name, product_price, quantity, status)
--- VALUES(1, NULL, 'PortDance PD025 Latin', 129.99, 1, 'INCART'),
---       (1, NULL, 'Yoga Mat Premium', 45.99, 1, 'INCART'),
---       (1, NULL, 'Chef Knife Set', 89.99, 1, 'INCART');
---
--- -- Piet's cart (userId=2, cartId=2) - Items SHIPPED
--- INSERT INTO order_items (cart_id, order_id, product_name, product_price, quantity, status)
--- VALUES(2, 1001, 'Ray Rose 825 Ballroom', 149.99, 1, 'SHIPPED'),
---       (2, 1001, 'Coffee Machine Deluxe', 299.99, 1, 'SHIPPED'),
---       (2, 1001, 'Protein Powder Vanilla', 29.99, 2, 'SHIPPED');
---
--- -- Anna's cart (userId=3, cartId=3) - Items ORDERED
--- INSERT INTO order_items (cartId, orderId, productName, productPrice, quantity, status)
--- VALUES(3, 1002, 'Diamant 144 Practice', 89.99, 1, 'ORDERED'),
---       (3, 1002, 'Drill Set Professional', 79.99, 1, 'ORDERED'),
---       (3, NULL, 'Bloch Tap Flex', 75.99, 1, 'INCART');
---
--- -- Jan's cart (userId=4, cartId=4) - Mixed statuses (DELIVERED, CANCELLED, INCART)
--- INSERT INTO order_items (cart_id, order_id, product_name, product_price, quantity, status)
--- VALUES(4, 1003, 'Capezio Character Oxford', 95.99, 1, 'DELIVERED'),
---       (4, NULL, 'PortDance A274 Salsa', 119.99, 1, 'INCART'),
---       (4, 1004, 'Yoga Mat Premium', 45.99, 1, 'DELIVERED'),
---       (4, 1005, 'Coffee Machine Deluxe', 299.99, 1, 'CANCELLED');
+-- Health products
+('Yoga Mat Premium', 'High-quality yoga mat with excellent grip and cushioning', 45.99, 'HEALTH', NULL, NULL, NULL, NULL, 30, true, '2025-01-08 12:00:00', '2025-01-15 09:30:00'),
+('Protein Powder Vanilla', 'Whey protein powder for muscle building and recovery', 29.99, 'HEALTH', NULL, NULL, NULL, NULL, 50, true, '2025-01-09 15:30:00', '2025-01-14 11:20:00'),
+
+-- Kitchen products
+('Chef Knife Set', 'Professional chef knife set with wooden block and sharpener', 89.99, 'KITCHEN', NULL, NULL, NULL, NULL, 15, true, '2025-01-10 16:45:00', '2025-01-16 13:40:00'),
+('Coffee Machine Deluxe', 'Automatic coffee machine with milk frother and timer', 299.99, 'KITCHEN', NULL, NULL, NULL, NULL, 8, true, '2025-01-11 10:20:00', '2025-01-15 16:50:00'),
+
+-- Tools products
+('Drill Set Professional', 'Complete drill set with various bits and carrying case', 79.99, 'TOOLS', NULL, NULL, NULL, NULL, 12, true, '2025-01-12 13:15:00', '2025-01-17 08:25:00');
+
+-- Carts
+INSERT INTO carts (user_id, created_at, updated_at)
+VALUES(1, '2025-01-15 10:00:00', '2025-01-15 14:30:00'),
+      (2, '2025-01-14 09:15:00', '2025-01-14 16:45:00');
+
+-- Order_Items
+INSERT INTO order_items  (cart_id, order_id, product_name, product_price, quantity, status)
+VALUES(1, NULL, 'PortDance PD025 Latin', 129.99, 1, 'INCART'),
+      (1, NULL, 'Yoga Mat Premium', 45.99, 1, 'INCART');
+
+INSERT INTO order_items (cart_id, order_id, product_name, product_price, quantity, status)
+VALUES (2, 1001, 'Ray Rose 825 Ballroom', 149.99, 1, 'SHIPPED'),
+       (2, 1001, 'Coffee Machine Deluxe', 299.99, 1, 'SHIPPED');
+
+INSERT INTO contacts (name, email, subject, message, created_at, is_read)
+VALUES ('Emma de Vries', 'emma@email.nl', 'Vraag over dansschoenen', 'Hallo, ik zou graag willen weten welke maat ik moet bestellen voor de PortDance schoenen. Ik heb normaal maat 38.', '2025-01-20 14:30:00', false),
+       ('Tom Janssen', 'tom@email.nl', 'Retour aanvraag', 'De Ray Rose schoenen die ik heb besteld zijn te klein. Kan ik deze retourneren voor een grotere maat?', '2025-01-19 16:45:00', true);

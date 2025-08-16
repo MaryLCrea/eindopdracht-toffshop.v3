@@ -1,7 +1,7 @@
 package toff.novi.eindopdrachttoffshop.enums;
 
 public enum OrderItemStatus {
-    IN_CART("In winkelwagen"),
+    INCART("In winkelwagen"),
     ORDERED("Besteld"),
     SHIPPED("Verzonden"),
     DELIVERED("Afgeleverd"),
@@ -18,7 +18,7 @@ public enum OrderItemStatus {
     }
 
     public boolean isInCart() {
-        return this == IN_CART;
+        return this == INCART;
     }
 
     public boolean isOrdered() {

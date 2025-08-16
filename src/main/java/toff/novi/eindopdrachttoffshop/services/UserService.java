@@ -47,7 +47,6 @@ public class UserService {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        // Update velden van existingUser met nieuwe waarden
         existingUser.setName(newUser.getName());
         existingUser.setEmail(newUser.getEmail());
         existingUser.setPhone(newUser.getPhone());

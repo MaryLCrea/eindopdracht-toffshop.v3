@@ -30,7 +30,7 @@ public class OrderItem {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private OrderItemStatus status = OrderItemStatus.IN_CART;
+    private OrderItemStatus status = OrderItemStatus.INCART;
 
     public OrderItem() {}
 
@@ -38,7 +38,7 @@ public class OrderItem {
         this.productName = productName;
         this.productPrice = productPrice;
         this.quantity = quantity;
-        this.status = OrderItemStatus.IN_CART;
+        this.status = OrderItemStatus.INCART;
     }
 
     public Integer getId() {

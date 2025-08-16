@@ -1,44 +1,28 @@
-package toff.novi.eindopdrachttoffshop.models;
+package toff.novi.eindopdrachttoffshop.dtos;
 
-import jakarta.persistence.*;
+import toff.novi.eindopdrachttoffshop.models.Contact;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "contacts")
-public class Contact {
+public class ContactResponseDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(name = "email", nullable = false)
     private String email;
-
-    @Column(name = "subject", nullable = false)
     private String subject;
-
-    @Column(name = "message", nullable = false, length = 1000)
     private String message;
-
-    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+    private Boolean isRead;
 
-    @Column(name = "is_read", nullable = false)
-    private Boolean isRead = false;
+    public ContactResponseDto() {}
 
-    public Contact() {
-        this.createdAt = LocalDateTime.now();
-    }
-
-    public Contact(String name, String email, String subject, String message) {
-        this();
-        this.name = name;
-        this.email = email;
-        this.subject = subject;
-        this.message = message;
+    public ContactResponseDto(Contact contact) {
+        this.id = contact.getId();
+        this.name = contact.getName();
+        this.email = contact.getEmail();
+        this.subject = contact.getSubject();
+        this.message = contact.getMessage();
+        this.createdAt = contact.getCreatedAt();
+        this.isRead = contact.getIsRead();
     }
 
     public Integer getId() {
@@ -95,16 +79,5 @@ public class Contact {
 
     public void setIsRead(Boolean isRead) {
         this.isRead = isRead;
-    }
-
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", subject='" + subject + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
     }
 }

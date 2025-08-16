@@ -44,7 +44,7 @@ public class CartService {
                 });
 
         Optional<OrderItem> existingItem = orderItemRepository
-                .findByCartIdAndProductNameAndStatus(cart.getId(), orderItemRequestDto.getProductName(), OrderItemStatus.IN_CART);
+                .findByCartIdAndProductNameAndStatus(cart.getId(), orderItemRequestDto.getProductName(), OrderItemStatus.INCART);
 
         if (existingItem.isPresent()) {
             OrderItem item = existingItem.get();
