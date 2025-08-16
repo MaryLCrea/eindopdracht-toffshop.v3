@@ -9,6 +9,7 @@ public class UriHelper {
         return URI.create(ServletUriComponentsBuilder
                 .fromCurrentContextPath()
                 .path("/" + resourcePath + "/" + resourceId)
-                .toUriString());
+                .toUriString()
+                );
     }
 }

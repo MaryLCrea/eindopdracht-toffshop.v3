@@ -5,7 +5,7 @@ import toff.novi.eindopdrachttoffshop.enums.OrderItemStatus;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "orderItems")
+@Table(name = "order_items")
 public class OrderItem {
 
     @Id
@@ -13,16 +13,16 @@ public class OrderItem {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cartId")
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    @Column(name = "orderId")
+    @Column(name = "order_id")
     private Integer orderId;
 
-    @Column(name = "productName", nullable = false)
+    @Column(name = "product_name", nullable = false)
     private String productName;
 
-    @Column(name = "productPrice", nullable = false, precision = 10, scale = 2)
+    @Column(name = "product_price", nullable = false, precision = 10, scale = 2)
     private BigDecimal productPrice;
 
     @Column(nullable = false)

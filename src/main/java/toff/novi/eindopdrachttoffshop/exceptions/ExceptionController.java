@@ -1,6 +1,5 @@
 package toff.novi.eindopdrachttoffshop.exceptions;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -14,18 +13,17 @@ import java.util.Map;
 public class ExceptionController {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> ResourceNotFoundException (ResourceNotFoundException ex) {
+    public ResponseEntity<String> ResourceNotFoundException(ResourceNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> methodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
+        Map<String, String> errorResponse = new HashMap<>();
         ex.getBindingResult()
                 .getFieldErrors()
-                .forEach(e -> errors.put(e.getField(), e.getDefaultMessage()));
+                .forEach(e -> errorResponse.put(e.getField(), e.getDefaultMessage()));
 
-        return ResponseEntity.badRequest().body(errors);
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
-
-
