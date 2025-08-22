@@ -9,30 +9,28 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @Column(name = "name")
     private String name;
-
     @Column(name = "email")
     private String email;
-
     @Column(name = "phone")
-    private Integer phone;
-
+    private String phone;
+    //  @Column(unique = true), @NotBlank, @Size(min = 3, max = 50)-> nog toepassen en error handling voor schrijven
     @Column(name = "password")
     private String password;
+
 
     public User() {
     }
 
-    public User(int id, String name, String email, int phone, String password) {
+    public User(int id, String name, String email, String phone, String password) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
     }
 
-    public User(String name, String email, int phone, String password) {
+    public User(String name, String email, String phone, String password) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -59,11 +57,11 @@ public class User {
         this.email = email;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

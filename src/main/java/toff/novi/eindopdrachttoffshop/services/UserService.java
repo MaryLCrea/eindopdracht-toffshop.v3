@@ -54,5 +54,9 @@ public class UserService {
 
         User updatedUser = userRepository.save(existingUser);
         return UserMapper.toResponseDto(updatedUser);
+
+             }
+    public void deleteUser(int id) {
+        userRepository.deleteById(id);
     }
 }

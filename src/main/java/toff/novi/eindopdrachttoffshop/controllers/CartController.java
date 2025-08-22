@@ -7,6 +7,8 @@ import toff.novi.eindopdrachttoffshop.dtos.OrderItemRequestDto;
 import toff.novi.eindopdrachttoffshop.dtos.CartResponseDto;
 import toff.novi.eindopdrachttoffshop.services.CartService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/carts")
 public class CartController {
@@ -18,10 +20,9 @@ public class CartController {
     }
 
     @PostMapping("/user/{userId}/items")
-    public ResponseEntity<CartResponseDto> addItemToCart(@PathVariable Integer userId,
-                                                         @Valid
-                                                         @RequestBody OrderItemRequestDto orderItemRequestDto) {
-        CartResponseDto updatedCart = cartService.addItemToCart(userId, orderItemRequestDto);
+    public ResponseEntity<CartResponseDto> addItemsToCart(@PathVariable Integer userId,
+                                                          @Valid @RequestBody List<OrderItemRequestDto> orderItems) {
+        CartResponseDto updatedCart = cartService.addItemsToCart(userId, orderItems);
         return ResponseEntity.ok(updatedCart);
     }
 
@@ -32,10 +33,11 @@ public class CartController {
     }
 
     @PutMapping("/user/{userId}/items/{orderItemId}")
-    public ResponseEntity<CartResponseDto> updateOrderItemQuantity(@PathVariable Integer userId,
-                                                                   @PathVariable Integer orderItemId,
-                                                                   @RequestParam Integer quantity) {
-        CartResponseDto updatedCart = cartService.updateOrderItemQuantity(userId, orderItemId, quantity);
+    public ResponseEntity<CartResponseDto> updateOrderItem(
+            @PathVariable Integer userId,
+            @PathVariable Integer orderItemId,
+            @RequestBody OrderItemRequestDto orderItemRequestDto) {
+        CartResponseDto updatedCart = cartService.updateOrderItem(userId, orderItemId, orderItemRequestDto);
         return ResponseEntity.ok(updatedCart);
     }
 

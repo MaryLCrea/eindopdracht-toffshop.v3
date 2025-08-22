@@ -12,6 +12,7 @@ import toff.novi.eindopdrachttoffshop.repositories.CartRepository;
 import toff.novi.eindopdrachttoffshop.repositories.OrderItemRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,28 +37,30 @@ public class CartService {
         return new CartResponseDto(cart);
     }
 
-    public CartResponseDto addItemToCart(Integer userId, OrderItemRequestDto orderItemRequestDto) {
+    public CartResponseDto addItemsToCart(Integer userId, List<OrderItemRequestDto> orderItems) {
         Cart cart = cartRepository.findByUserId(userId)
                 .orElseGet(() -> {
                     User user = userService.getSingleUser(userId);
                     return cartRepository.save(new Cart(user));
                 });
 
-        Optional<OrderItem> existingItem = orderItemRepository
-                .findByCartIdAndProductNameAndStatus(cart.getId(), orderItemRequestDto.getProductName(), OrderItemStatus.INCART);
+        for (OrderItemRequestDto orderItemDto : orderItems) {
+            Optional<OrderItem> existingItem = orderItemRepository
+                    .findByCartIdAndProductNameAndStatus(cart.getId(), orderItemDto.getProductName(), OrderItemStatus.INCART);
 
-        if (existingItem.isPresent()) {
-            OrderItem item = existingItem.get();
-            item.setQuantity(item.getQuantity() + orderItemRequestDto.getQuantity());
-            orderItemRepository.save(item);
-        } else {
-            OrderItem newItem = new OrderItem(
-                    orderItemRequestDto.getProductName(),
-                    orderItemRequestDto.getProductPrice(),
-                    orderItemRequestDto.getQuantity()
-            );
-            cart.addOrderItem(newItem);
-            orderItemRepository.save(newItem);
+            if (existingItem.isPresent()) {
+                OrderItem item = existingItem.get();
+                item.setQuantity(item.getQuantity() + orderItemDto.getQuantity());
+                orderItemRepository.save(item);
+            } else {
+                OrderItem newItem = new OrderItem(
+                        orderItemDto.getProductName(),
+                        orderItemDto.getProductPrice(),
+                        orderItemDto.getQuantity()
+                );
+                cart.addOrderItem(newItem);
+                orderItemRepository.save(newItem);
+            }
         }
 
         cart.setUpdatedAt(LocalDateTime.now());
@@ -83,6 +86,31 @@ public class CartService {
             orderItem.setQuantity(newQuantity);
             orderItemRepository.save(orderItem);
         }
+
+        cart.setUpdatedAt(LocalDateTime.now());
+        Cart updatedCart = cartRepository.save(cart);
+        return new CartResponseDto(updatedCart);
+    }
+
+    // 🔹 Nieuwe PUT-methode: volledige vervanging van een order item
+    public CartResponseDto updateOrderItem(Integer userId, Integer orderItemId, OrderItemRequestDto orderItemRequestDto) {
+        Cart cart = cartRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Cart not found for user with id " + userId));
+
+        OrderItem orderItem = orderItemRepository.findById(orderItemId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order item with id " + orderItemId + " not found"));
+
+        if (!orderItem.getCart().getId().equals(cart.getId()) || !orderItem.isInCart()) {
+            throw new IllegalArgumentException("Order item does not belong to this user's cart or is not in cart status");
+        }
+
+        // 🔄 volledige vervanging (PUT)
+        orderItem.setProductName(orderItemRequestDto.getProductName());
+        orderItem.setProductPrice(orderItemRequestDto.getProductPrice());
+        orderItem.setQuantity(orderItemRequestDto.getQuantity());
+        orderItem.setStatus(orderItemRequestDto.getStatus());
+
+        orderItemRepository.save(orderItem);
 
         cart.setUpdatedAt(LocalDateTime.now());
         Cart updatedCart = cartRepository.save(cart);

@@ -1,7 +1,7 @@
 package toff.novi.eindopdrachttoffshop.enums;
 
 public enum Heel {
-    NONE("No Heel", 0.0),
+    FLAT("No Heel", 0.0),
     XLOW("Mini", 2.5),
     LOW("Laag", 3.5),
     MEDIUM("Middel", 5.0),

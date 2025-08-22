@@ -28,17 +28,20 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
-        User user = this.userService.createUser(userRequestDto);
-        UserResponseDto userResponseDto = UserMapper.toResponseDto(user);
+    public ResponseEntity<List<UserResponseDto>> createUsers(@Valid @RequestBody List<UserRequestDto> userRequestDtos) {
+        List<UserResponseDto> responseDtos = userRequestDtos.stream()
+                .map(userService::createUser)
+                .map(UserMapper::toResponseDto)
+                .toList();
 
-        URI uri = UriHelper.createUri("users", String.valueOf(user.getId()));
+        URI uri = responseDtos.isEmpty() ? null :
+                UriHelper.createUri("users", String.valueOf(responseDtos.get(0).getId()));
 
-        return ResponseEntity.created(uri).body(userResponseDto);
+        return ResponseEntity.created(uri).body(responseDtos);
     }
 
 
-    @GetMapping("/users")
+    @GetMapping
     public List<UserResponseDto> getAllUsers() {
         List<User> users = userService.getUsers();
 
@@ -52,13 +55,13 @@ public class UserController {
         return ResponseEntity.ok(UserMapper.toResponseDto(this.userService.getSingleUser(id)));
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable Integer id) {
-
+         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUser(@PathVariable Integer id, @Valid @RequestBody UserRequestDto newUser) {
 
         UserResponseDto dto = userService.updateUser(id, newUser);

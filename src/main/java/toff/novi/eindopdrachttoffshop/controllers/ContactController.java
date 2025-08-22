@@ -23,10 +23,15 @@ public class ContactController {
     }
 
     @PostMapping
-    public ResponseEntity<ContactResponseDto> createContact(@Valid @RequestBody ContactRequestDto contactRequestDto) {
-        ContactResponseDto createdContact = contactService.createContact(contactRequestDto);
-        URI uri = UriHelper.createUri("contacts", String.valueOf(createdContact.getId()));
-        return ResponseEntity.created(uri).body(createdContact);
+    public ResponseEntity<List<ContactResponseDto>> createContacts(
+            @Valid @RequestBody List<ContactRequestDto> contactRequestDtos) {
+
+        List<ContactResponseDto> createdContacts = contactRequestDtos.stream()
+                .map(contactService::createContact)
+                .toList();
+              URI uri = createdContacts.isEmpty() ? null :
+                UriHelper.createUri("contacts", String.valueOf(createdContacts.get(0).getId()));
+        return ResponseEntity.created(uri).body(createdContacts);
     }
 
     @GetMapping

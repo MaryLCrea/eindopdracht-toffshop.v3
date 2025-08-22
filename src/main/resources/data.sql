@@ -24,15 +24,17 @@ INSERT INTO carts (user_id, created_at, updated_at)
 VALUES(1, '2025-01-15 10:00:00', '2025-01-15 14:30:00'),
       (2, '2025-01-14 09:15:00', '2025-01-14 16:45:00');
 
--- Order_Items
+-- Order_Items winkelwagen 1
 INSERT INTO order_items  (cart_id, order_id, product_name, product_price, quantity, status)
 VALUES(1, NULL, 'PortDance PD025 Latin', 129.99, 1, 'INCART'),
       (1, NULL, 'Yoga Mat Premium', 45.99, 1, 'INCART');
 
+-- Order_Items winkelwagen 2
 INSERT INTO order_items (cart_id, order_id, product_name, product_price, quantity, status)
 VALUES (2, 1001, 'Ray Rose 825 Ballroom', 149.99, 1, 'SHIPPED'),
        (2, 1001, 'Coffee Machine Deluxe', 299.99, 1, 'SHIPPED');
 
+-- Contacts
 INSERT INTO contacts (name, email, subject, message, created_at, is_read)
 VALUES ('Emma de Vries', 'emma@email.nl', 'Vraag over dansschoenen', 'Hallo, ik zou graag willen weten welke maat ik moet bestellen voor de PortDance schoenen. Ik heb normaal maat 38.', '2025-01-20 14:30:00', false),
        ('Tom Janssen', 'tom@email.nl', 'Retour aanvraag', 'De Ray Rose schoenen die ik heb besteld zijn te klein. Kan ik deze retourneren voor een grotere maat?', '2025-01-19 16:45:00', true);
