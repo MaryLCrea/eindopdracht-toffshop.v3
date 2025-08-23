@@ -60,14 +60,14 @@ public class ProductService {
     }
 
     public List<ProductResponseDto> getProductsByCategory(Category category) {
-        return productRepository.findByCategory(category)
+        return productRepository.findByIsActiveTrueAndCategory(category)
                 .stream()
                 .map(ProductResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     public List<ProductResponseDto> getProductsByBrand(Brand brand) {
-        return productRepository.findByBrand(brand)
+        return productRepository.findByIsActiveTrueAndBrand(brand)
                 .stream()
                 .map(ProductResponseDto::new)
                 .collect(Collectors.toList());
@@ -88,7 +88,7 @@ public class ProductService {
     }
 
     public List<ProductResponseDto> getDanceShoesByBrandColorAndSize(Brand brand, Color color, Size size) {
-        return productRepository.findByBrandAndColorAndSize(brand, color, size)
+        return productRepository.findByMultipleCriteria(brand, color, size, null)
                 .stream()
                 .map(ProductResponseDto::new)
                 .collect(Collectors.toList());
@@ -132,6 +132,17 @@ public class ProductService {
         product.setIsActive(false);
         product.setUpdatedAt(LocalDateTime.now());
 
+        Product updated = productRepository.save(product);
+        return new ProductResponseDto(updated);
+    }
+
+    public ProductResponseDto updateProductImage(Integer id, String imageName, String imageUrl) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
+
+        product.setImageName(imageName);
+        product.setImageUrl(imageUrl);
+        product.setUpdatedAt(LocalDateTime.now());
         Product updated = productRepository.save(product);
         return new ProductResponseDto(updated);
     }

@@ -5,13 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.4</version>
+        <version>3.1.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>toff.novi</groupId>
     <artifactId>eindopdracht-toffshop</artifactId>
-    <version>versie 1.0</version>    <name>eindopdracht-toffshop.v1</name>
-    <description>eindopdracht-toffshop.v1</description>
+    <version>versie 2.0</version>
+    <name>eindopdracht-toffshop.v2</name>
+    <description>eindopdracht-toffshop.v2</description>
     <url/>
     <licenses>
         <license/>

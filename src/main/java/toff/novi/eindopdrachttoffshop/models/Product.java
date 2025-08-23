@@ -50,6 +50,12 @@ public class Product {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(name = "image_name", length = 255)
+    private String imageName;
+
+    @Column(name = "image_url", length = 500)
+    private String imageUrl;
+
     public Product() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
@@ -183,6 +189,22 @@ public class Product {
 
     public boolean isInStock() {
         return stockQuantity > 0;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public void reduceStock(Integer quantity) {

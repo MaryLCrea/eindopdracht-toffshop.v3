@@ -9,11 +9,11 @@ VALUES
 ('Ray Rose 825 Ballroom', 'Elegant ballroom shoes for standard dancing with leather sole', 149.99, 'FASHION', 'RAYROSE', 'NUDE', 'MEDIUM', 'SIZE_39', 12, true, '2025-01-11 09:15:00', '2025-01-14 16:45:00'),
 
 -- Health products
-('Yoga Mat Premium', 'High-quality yoga mat with excellent grip and cushioning', 45.99, 'HEALTH', NULL, NULL, NULL, NULL, 30, true, '2025-01-08 12:00:00', '2025-01-15 09:30:00'),
+('Yoga Mat Premium', 'High-quality yoga mat with excellent grip and cushioning', 45.99, 'HEALTH', NULL, NULL, NULL, NULL, 30, false, '2025-01-08 12:00:00', '2025-01-15 09:30:00'),
 ('Protein Powder Vanilla', 'Whey protein powder for muscle building and recovery', 29.99, 'HEALTH', NULL, NULL, NULL, NULL, 50, true, '2025-01-09 15:30:00', '2025-01-14 11:20:00'),
 
 -- Kitchen products
-('Chef Knife Set', 'Professional chef knife set with wooden block and sharpener', 89.99, 'KITCHEN', NULL, NULL, NULL, NULL, 15, true, '2025-01-10 16:45:00', '2025-01-16 13:40:00'),
+('Chef Knife Set', 'Professional chef knife set with wooden block and sharpener', 89.99, 'KITCHEN', NULL, NULL, NULL, NULL, 15, false, '2025-01-10 16:45:00', '2025-01-16 13:40:00'),
 ('Coffee Machine Deluxe', 'Automatic coffee machine with milk frother and timer', 299.99, 'KITCHEN', NULL, NULL, NULL, NULL, 8, true, '2025-01-11 10:20:00', '2025-01-15 16:50:00'),
 
 -- Tools products
@@ -24,7 +24,7 @@ INSERT INTO carts (user_id, created_at, updated_at)
 VALUES(1, '2025-01-15 10:00:00', '2025-01-15 14:30:00'),
       (2, '2025-01-14 09:15:00', '2025-01-14 16:45:00');
 
--- Order_Items winkelwagen 1
+-- Order_Items winkelwagenPD025
 INSERT INTO order_items  (cart_id, order_id, product_name, product_price, quantity, status)
 VALUES(1, NULL, 'PortDance PD025 Latin', 129.99, 1, 'INCART'),
       (1, NULL, 'Yoga Mat Premium', 45.99, 1, 'INCART');

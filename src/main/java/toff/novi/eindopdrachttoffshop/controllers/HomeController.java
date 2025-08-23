@@ -16,12 +16,12 @@ public class HomeController {
         response.put("message", "Welkom bij Toffshop Webshop API!");
         response.put("version", "1.0");
         response.put("timestamp", LocalDateTime.now());
-        response.put("endpoints", Map.of(
+        response.put("endpoints head categories", Map.of(
 
-                "fashion", "category/fashion",
-                "health", "category/health",
-                "Kitchen", "category/kitchen",
-                "tools", "category/tools"
+                "fashion", "category/FASHION",
+                "health", "category/HEALTH",
+                "Kitchen", "category/KITCHEN",
+                "tools", "category/TOOLS"
 
         ));
         return response;

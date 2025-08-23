@@ -22,6 +22,8 @@ public class ProductResponseDto {
     private Boolean isDanceShoe;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String imageName;
+    private String imageUrl;
 
     public ProductResponseDto() {}
 
@@ -41,6 +43,8 @@ public class ProductResponseDto {
         this.isDanceShoe = product.isDanceShoe();
         this.createdAt = product.getCreatedAt();
         this.updatedAt = product.getUpdatedAt();
+        this.imageName = product.getImageName();
+        this.imageUrl = product.getImageUrl();
     }
 
     public Integer getId() {
@@ -161,5 +165,20 @@ public class ProductResponseDto {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
