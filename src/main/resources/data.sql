@@ -27,11 +27,11 @@ VALUES(1, '2025-01-15 10:00:00', '2025-01-15 14:30:00'),
 -- Order_Items winkelwagenPD025
 INSERT INTO order_items  (cart_id, order_id, product_name, product_price, quantity, status)
 VALUES(1, NULL, 'PortDance PD025 Latin', 129.99, 1, 'INCART'),
-      (1, NULL, 'Yoga Mat Premium', 45.99, 1, 'INCART');
+      (1, NULL, 'Yoga Mat Premium', 45.99, 1, 'CANCELLED');
 
 -- Order_Items winkelwagen 2
 INSERT INTO order_items (cart_id, order_id, product_name, product_price, quantity, status)
-VALUES (2, 1001, 'Ray Rose 825 Ballroom', 149.99, 1, 'SHIPPED'),
+VALUES (2, 1001, 'Ray Rose 825 Ballroom', 149.99, 1, 'ORDERED'),
        (2, 1001, 'Coffee Machine Deluxe', 299.99, 1, 'SHIPPED');
 
 -- Contacts

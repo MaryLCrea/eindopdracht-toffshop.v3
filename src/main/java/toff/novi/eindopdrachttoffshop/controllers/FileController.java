@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,18 +23,17 @@ public class FileController {
     @Autowired
     private FileStorageService fileStorageService;
 
-    // POST /api/files/upload - Upload een bestand
     @PostMapping("/upload")
     public ResponseEntity<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            // Valideer bestand
+
             if (file.isEmpty()) {
                 Map<String, Object> errorResponse = new HashMap<>();
                 errorResponse.put("error", "Geen bestand geselecteerd");
                 return ResponseEntity.badRequest().body(errorResponse);
             }
 
-            // Valideer bestandstype (alleen afbeeldingen)
+
             String contentType = file.getContentType();
             if (contentType == null || !contentType.startsWith("image/")) {
                 Map<String, Object> errorResponse = new HashMap<>();
@@ -41,17 +41,17 @@ public class FileController {
                 return ResponseEntity.badRequest().body(errorResponse);
             }
 
-            // Valideer bestandsgrootte (max 5MB)
+
             if (file.getSize() > 5 * 1024 * 1024) {
                 Map<String, Object> errorResponse = new HashMap<>();
                 errorResponse.put("error", "Bestand is te groot (max 5MB)");
                 return ResponseEntity.badRequest().body(errorResponse);
             }
 
-            // Sla bestand op
+
             String fileName = fileStorageService.storeFile(file);
 
-            // Genereer download URL
+
             String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                     .path("/files/download/")
                     .path(fileName)
@@ -74,22 +74,21 @@ public class FileController {
         }
     }
 
-    // GET /api/files/download/{fileName} - Download een bestand
+
     @GetMapping("/download/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
         try {
-            // Load file as Resource
+
             Resource resource = fileStorageService.loadFileAsResource(fileName);
 
-            // Try to determine file's content type
+
             String contentType = null;
             try {
                 contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
             } catch (IOException ex) {
-                // Fallback to default content type
+
             }
 
-            // Fallback to the default content type if type could not be determined
             if (contentType == null) {
                 contentType = "application/octet-stream";
             }
@@ -104,7 +103,6 @@ public class FileController {
         }
     }
 
-    // DELETE /api/files/delete/{fileName} - Verwijder een bestand
     @DeleteMapping("/delete/{fileName:.+}")
     public ResponseEntity<Map<String, Object>> deleteFile(@PathVariable String fileName) {
         try {
@@ -127,7 +125,6 @@ public class FileController {
         }
     }
 
-    // GET /api/files/info - Informatie over upload directory
     @GetMapping("/info")
     public ResponseEntity<Map<String, Object>> getFileInfo() {
         Map<String, Object> response = new HashMap<>();

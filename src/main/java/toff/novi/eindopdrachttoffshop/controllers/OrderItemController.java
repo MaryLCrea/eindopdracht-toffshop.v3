@@ -43,18 +43,4 @@ public class OrderItemController {
         List<OrderItemResponseDto> orderItems = orderItemService.getOrderItemsByStatus(status);
         return ResponseEntity.ok(orderItems);
     }
-
-    @PutMapping("/{id}/status")
-    public ResponseEntity<OrderItemResponseDto> updateOrderItemStatus(
-            @PathVariable Integer id,
-            @RequestParam OrderItemStatus status) {
-        OrderItemResponseDto updatedOrderItem = orderItemService.updateOrderItemStatus(id, status);
-        return ResponseEntity.ok(updatedOrderItem);
-    }
-
-    @GetMapping("/order/{orderId}")
-    public ResponseEntity<List<OrderItemResponseDto>> getOrderItemsByOrderId(@PathVariable Integer orderId) {
-        List<OrderItemResponseDto> orderItems = orderItemService.getOrderItemsByOrderId(orderId);
-        return ResponseEntity.ok(orderItems);
-    }
 }

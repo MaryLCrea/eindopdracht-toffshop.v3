@@ -21,7 +21,6 @@ public class FileStorageService {
     private final Path fileStorageLocation;
 
     public FileStorageService() {
-        // Upload directory in project root
         this.fileStorageLocation = Paths.get("uploads/products")
                 .toAbsolutePath().normalize();
 
@@ -33,23 +32,19 @@ public class FileStorageService {
     }
 
     public String storeFile(MultipartFile file) {
-        // Normalize file name
         String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
-            // Check if the file's name contains invalid characters
             if (originalFileName.contains("..")) {
                 throw new RuntimeException("Sorry! Filename contains invalid path sequence " + originalFileName);
             }
 
-            // Generate unique filename
             String fileExtension = "";
             if (originalFileName.contains(".")) {
                 fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
             }
             String fileName = UUID.randomUUID().toString() + fileExtension;
 
-            // Copy file to the target location (Replacing existing file with the same name)
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 

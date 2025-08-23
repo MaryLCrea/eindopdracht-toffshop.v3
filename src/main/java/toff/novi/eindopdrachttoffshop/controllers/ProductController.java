@@ -216,24 +216,20 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    // POST /api/products/{id}/upload-image - Upload afbeelding voor product
     @PostMapping("/{id}/upload-image")
     public ResponseEntity<Map<String, Object>> uploadProductImage(
             @PathVariable Integer id,
             @RequestParam("file") MultipartFile file) {
 
         try {
-            // Valideer product bestaat
             ProductResponseDto product = productService.getProductById(id);
 
-            // Valideer bestand
             if (file.isEmpty()) {
                 Map<String, Object> errorResponse = new HashMap<>();
                 errorResponse.put("error", "Geen bestand geselecteerd");
                 return ResponseEntity.badRequest().body(errorResponse);
             }
 
-            // Valideer bestandstype (alleen afbeeldingen)
             String contentType = file.getContentType();
             if (contentType == null || !contentType.startsWith("image/")) {
                 Map<String, Object> errorResponse = new HashMap<>();
@@ -241,16 +237,13 @@ public class ProductController {
                 return ResponseEntity.badRequest().body(errorResponse);
             }
 
-            // Upload bestand
             String fileName = fileStorageService.storeFile(file);
 
-            // Genereer download URL
             String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                     .path("/api/files/download/")
                     .path(fileName)
                     .toUriString();
 
-            // Update product met afbeelding info
             ProductResponseDto updatedProduct = productService.updateProductImage(id, fileName, fileDownloadUri);
 
             Map<String, Object> response = new HashMap<>();
@@ -268,17 +261,16 @@ public class ProductController {
         }
     }
 
-    // DELETE /api/products/{id}/delete-image - Verwijder afbeelding van product
     @DeleteMapping("/{id}/delete-image")
     public ResponseEntity<Map<String, Object>> deleteProductImage(@PathVariable Integer id) {
         try {
             ProductResponseDto product = productService.getProductById(id);
 
             if (product.getImageName() != null) {
-                // Verwijder bestand van disk
+
                 fileStorageService.deleteFile(product.getImageName());
 
-                // Update product (verwijder afbeelding info)
+
                 ProductResponseDto updatedProduct = productService.updateProductImage(id, null, null);
 
                 Map<String, Object> response = new HashMap<>();
@@ -298,7 +290,6 @@ public class ProductController {
         }
     }
 
-    // PUT /api/products/{id} - Product bijwerken
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateProduct(
             @PathVariable Integer id,
@@ -313,7 +304,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // PUT /api/products/{id}/stock - Voorraad bijwerken
     @PutMapping("/{id}/stock")
     public ResponseEntity<Map<String, Object>> updateStock(
             @PathVariable Integer id,
@@ -335,7 +325,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // PUT /api/products/{id}/deactivate - Product deactiveren
     @PutMapping("/{id}/deactivate")
     public ResponseEntity<Map<String, Object>> deactivateProduct(@PathVariable Integer id) {
         ProductResponseDto product = productService.deactivateProduct(id);
@@ -347,7 +336,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // DELETE /api/products/{id} - Product verwijderen
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> deleteProduct(@PathVariable Integer id) {
         productService.deleteProduct(id);
