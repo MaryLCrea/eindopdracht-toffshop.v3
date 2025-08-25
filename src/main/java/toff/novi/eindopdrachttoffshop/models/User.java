@@ -2,6 +2,7 @@ package toff.novi.eindopdrachttoffshop.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+
 import java.util.Set;
 
 @Entity
@@ -31,19 +32,18 @@ public class User {
     public User() {
     }
 
-    public User(int id, String name, String email, String phone, String password) {
+    public User(int id, String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public User(String name, String email, String phone, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
+
 
     public User(String name, @Email String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
 
     public void setId(int id) {
@@ -66,7 +66,6 @@ public class User {
         this.email = email;
     }
 
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -74,6 +73,7 @@ public class User {
     public String getPassword() { return password; } // TOEGEVOEGD
 
     public Set<Role> getRoles() { return roles; } // TOEGEVOEGD
+
     public void setRoles(Set<Role> roles) { this.roles = roles; } // TOEGEVOEGD
 
     public String getUsername() { return email; } // TOEGEVOEGD, email als username
@@ -92,5 +92,6 @@ public class User {
         return id;
 
     }
-}
+
+   }
 

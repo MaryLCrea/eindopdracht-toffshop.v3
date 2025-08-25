@@ -1,8 +1,8 @@
+
 package toff.novi.eindopdrachttoffshop.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -51,15 +51,27 @@ public class SecurityConfig  {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/users", "POST")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/auth", "POST")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/admin")).hasRole("ADMIN")
-                        .requestMatchers(new AntPathRequestMatcher("/order")).authenticated()
-                        .requestMatchers(new AntPathRequestMatcher("/users")).authenticated()
-                        .requestMatchers(new AntPathRequestMatcher("/users/**")).authenticated()
-                        .anyRequest().denyAll()
-                )
+                .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/users", "POST")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/auth", "POST")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/test.html")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/*.html")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/test.html")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/*.html")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/roles", "GET")).authenticated()
+                .requestMatchers(new AntPathRequestMatcher("/admin")).hasRole("ADMIN")
+                .requestMatchers(new AntPathRequestMatcher("/order-item")).authenticated()
+                .requestMatchers(new AntPathRequestMatcher("/users")).authenticated()
+                .requestMatchers(new AntPathRequestMatcher("/users/**")).authenticated()
+                .requestMatchers(new AntPathRequestMatcher("/contact/**")).authenticated()
+                        .anyRequest().authenticated()
+        )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf -> csrf.disable())
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
@@ -68,4 +80,8 @@ public class SecurityConfig  {
         return http.build();
     }
 }
+
+
+
+
 

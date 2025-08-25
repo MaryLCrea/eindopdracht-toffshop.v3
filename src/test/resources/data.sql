@@ -1,55 +1,65 @@
-spring.sql.init.mode=never
+-- noinspection SqlDialectInspectionForFile
 
---Users
-INSERT INTO users (name, email, password)
-VALUES
-    ('Alex Puk', 'alex@email.com', '$2a$10$7QpXxG1ZcJZ3s7Nv6FQ3eOZ5RVzXg5p8K8S/oh9pE3dfkJ7k9r9K6'),
-    ('Pieta Pluk', 'pieta@email.com', '$2a$10$E3fT6y1qRjFv2x8sLk9VjOe7B2bXk4QwC1HnD6rF9mJ0tPqR5S8aG');
+-- noinspection SqlNoDataSourceInspectionForFile
 
---Roles
-INSERT INTO roles (rolename) VALUES ('ROLE_CUSTOMER');
-INSERT INTO roles (rolename) VALUES ('ROLE_ADMIN');
-ON CONFLICT (rolename) DO NOTHING;
 
--- User-Roles
-INSERT INTO user_roles (user_id, role_name)
-VALUES
-    (1, 'ROLE_CUSTOMER'),
-    (2, 'ROLE_ADMIN');
-ON CONFLICT (rolename) DO NOTHING;
+insert into roles(rolename) values ('ROLE_USER'), ('ROLE_ADMIN');
 
--- Products
-INSERT INTO products (name, description, price, category, brand, color, heel, size, stock_quantity, is_active, created_at, updated_at)
-VALUES
-    ('PortDance PD025 Latin', 'Professional Latin dance shoes with suede sole and ankle strap', 129.99, 'FASHION', 'PORTDANCE', 'BLACK', 'HIGH', 'SIZE_38', 15, true, '2025-01-10 10:00:00', '2025-01-15 14:30:00'),
-    ('Ray Rose 825 Ballroom', 'Elegant ballroom shoes for standard dancing with leather sole', 149.99, 'FASHION', 'RAYROSE', 'NUDE', 'MEDIUM', 'SIZE_39', 12, true, '2025-01-11 09:15:00', '2025-01-14 16:45:00'),
+--   username: karel, password: appel
+insert into users(username, password) values ('karel', '$2a$12$v3hpM1z6mh.ITK9UdFeeiOHOaRzvrlLCCGQc9tyZi718XWXWmLub6');
 
--- Health products
-    ('Yoga Mat Premium', 'High-quality yoga mat with excellent grip and cushioning', 45.99, 'HEALTH', NULL, NULL, NULL, NULL, 30, false, '2025-01-08 12:00:00', '2025-01-15 09:30:00'),
-    ('Protein Powder Vanilla', 'Whey protein powder for muscle building and recovery', 29.99, 'HEALTH', NULL, NULL, NULL, NULL, 50, true, '2025-01-09 15:30:00', '2025-01-14 11:20:00'),
-
--- Kitchen products
-    ('Chef Knife Set', 'Professional chef knife set with wooden block and sharpener', 89.99, 'KITCHEN', NULL, NULL, NULL, NULL, 15, false, '2025-01-10 16:45:00', '2025-01-16 13:40:00'),
-    ('Coffee Machine Deluxe', 'Automatic coffee machine with milk frother and timer', 299.99, 'KITCHEN', NULL, NULL, NULL, NULL, 8, true, '2025-01-11 10:20:00', '2025-01-15 16:50:00'),
-
--- Tools products
-    ('Drill Set Professional', 'Complete drill set with various bits and carrying case', 79.99, 'TOOLS', NULL, NULL, NULL, NULL, 12, true, '2025-01-12 13:15:00', '2025-01-17 08:25:00');
-
--- Carts
-INSERT INTO carts (user_id, created_at, updated_at)
-VALUES
-    (1, '2025-01-15 10:00:00', '2025-01-15 14:30:00'),
-    (2, '2025-01-14 09:15:00', '2025-01-14 16:45:00');
-
--- Order_Items winkelwagenPD025
-INSERT INTO order_items  (cart_id, order_id, product_name, product_price, quantity, status)
-VALUES
-    (1, NULL, 'PortDance PD025 Latin', 129.99, 1, 'INCART'),
-    (1, NULL, 'Yoga Mat Premium', 45.99, 1, 'CANCELLED');
-
--- Order_Items winkelwagen 2
-INSERT INTO order_items (cart_id, order_id, product_name, product_price, quantity, status)
-VALUES
-    (2, 1001, 'Ray Rose 825 Ballroom', 149.99, 1, 'ORDERED'),
-    (2, 1001, 'Coffee Machine Deluxe', 299.99, 1, 'SHIPPED');
-
+insert into users_roles(username, rolename) values('karel', 'ROLE_USER');--
+--
+-- --Users
+-- INSERT INTO users (name, email, password)
+-- VALUES
+--     ('Alex Puk', 'alex@email.com', '$2a$10$7QpXxG1ZcJZ3s7Nv6FQ3eOZ5RVzXg5p8K8S/oh9pE3dfkJ7k9r9K6'),
+--     ('Pieta Pluk', 'pieta@email.com', '$2a$10$E3fT6y1qRjFv2x8sLk9VjOe7B2bXk4QwC1HnD6rF9mJ0tPqR5S8aG');
+--
+-- --Roles
+-- INSERT INTO roles (rolename) VALUES ('ROLE_CUSTOMER');
+-- INSERT INTO roles (rolename) VALUES ('ROLE_ADMIN');
+-- ON CONFLICT (rolename) DO NOTHING;
+--
+-- -- User-Roles
+-- INSERT INTO user_roles (user_id, role_name)
+-- VALUES
+--     (1, 'ROLE_CUSTOMER'),
+--     (2, 'ROLE_ADMIN');
+-- ON CONFLICT (rolename) DO NOTHING;
+--
+-- -- Products
+-- INSERT INTO products (name, description, price, category, brand, color, heel, size, stock_quantity, is_active, created_at, updated_at)
+-- VALUES
+--     ('PortDance PD025 Latin', 'Professional Latin dance shoes with suede sole and ankle strap', 129.99, 'FASHION', 'PORTDANCE', 'BLACK', 'HIGH', 'SIZE_38', 15, true, '2025-01-10 10:00:00', '2025-01-15 14:30:00'),
+--     ('Ray Rose 825 Ballroom', 'Elegant ballroom shoes for standard dancing with leather sole', 149.99, 'FASHION', 'RAYROSE', 'NUDE', 'MEDIUM', 'SIZE_39', 12, true, '2025-01-11 09:15:00', '2025-01-14 16:45:00'),
+--
+-- -- Health products
+--     ('Yoga Mat Premium', 'High-quality yoga mat with excellent grip and cushioning', 45.99, 'HEALTH', NULL, NULL, NULL, NULL, 30, false, '2025-01-08 12:00:00', '2025-01-15 09:30:00'),
+--     ('Protein Powder Vanilla', 'Whey protein powder for muscle building and recovery', 29.99, 'HEALTH', NULL, NULL, NULL, NULL, 50, true, '2025-01-09 15:30:00', '2025-01-14 11:20:00'),
+--
+-- -- Kitchen products
+--     ('Chef Knife Set', 'Professional chef knife set with wooden block and sharpener', 89.99, 'KITCHEN', NULL, NULL, NULL, NULL, 15, false, '2025-01-10 16:45:00', '2025-01-16 13:40:00'),
+--     ('Coffee Machine Deluxe', 'Automatic coffee machine with milk frother and timer', 299.99, 'KITCHEN', NULL, NULL, NULL, NULL, 8, true, '2025-01-11 10:20:00', '2025-01-15 16:50:00'),
+--
+-- -- Tools products
+--     ('Drill Set Professional', 'Complete drill set with various bits and carrying case', 79.99, 'TOOLS', NULL, NULL, NULL, NULL, 12, true, '2025-01-12 13:15:00', '2025-01-17 08:25:00');
+--
+-- -- Carts
+-- INSERT INTO carts (user_id, created_at, updated_at)
+-- VALUES
+--     (1, '2025-01-15 10:00:00', '2025-01-15 14:30:00'),
+--     (2, '2025-01-14 09:15:00', '2025-01-14 16:45:00');
+--
+-- -- Order_Items winkelwagenPD025
+-- INSERT INTO order_items  (cart_id, order_id, product_name, product_price, quantity, status)
+-- VALUES
+--     (1, NULL, 'PortDance PD025 Latin', 129.99, 1, 'INCART'),
+--     (1, NULL, 'Yoga Mat Premium', 45.99, 1, 'CANCELLED');
+--
+-- -- Order_Items winkelwagen 2
+-- INSERT INTO order_items (cart_id, order_id, product_name, product_price, quantity, status)
+-- VALUES
+--     (2, 1001, 'Ray Rose 825 Ballroom', 149.99, 1, 'ORDERED'),
+--     (2, 1001, 'Coffee Machine Deluxe', 299.99, 1, 'SHIPPED');
+--

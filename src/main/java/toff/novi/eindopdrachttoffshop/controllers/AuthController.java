@@ -1,6 +1,5 @@
 package toff.novi.eindopdrachttoffshop.controllers;
 
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toff.novi.eindopdrachttoffshop.dtos.AuthDto;
 import toff.novi.eindopdrachttoffshop.security.JwtService;
+
+import java.util.Map;
 
 @RestController
 public class AuthController {
