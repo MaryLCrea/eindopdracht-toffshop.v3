@@ -1,4 +1,4 @@
 package toff.novi.eindopdrachttoffshop.security;
 
-public class JwtRequestFilter {
+public class MyYserDetailsService {
 }
