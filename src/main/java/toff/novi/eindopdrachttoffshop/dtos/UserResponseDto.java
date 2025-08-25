@@ -7,7 +7,6 @@ public class UserResponseDto {
     public int id;
     public String name;
     public String email;
-    private String phone;
     private String password;
 
     public UserResponseDto(User user) {
@@ -38,14 +37,6 @@ public class UserResponseDto {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public void setPassword(String password) {

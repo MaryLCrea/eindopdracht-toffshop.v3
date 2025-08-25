@@ -48,9 +48,7 @@ public class FileController {
                 return ResponseEntity.badRequest().body(errorResponse);
             }
 
-
             String fileName = fileStorageService.storeFile(file);
-
 
             String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                     .path("/files/download/")

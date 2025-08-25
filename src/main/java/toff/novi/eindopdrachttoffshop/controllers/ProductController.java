@@ -30,7 +30,6 @@ public class ProductController {
         this.fileStorageService = fileStorageService;
     }
 
-    // GET /api/products - Alle producten ophalen
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllProducts() {
         List<ProductResponseDto> products = productService.getAllProducts();
@@ -43,7 +42,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // GET /api/products/active - Alleen actieve producten
     @GetMapping("/active")
     public ResponseEntity<Map<String, Object>> getActiveProducts() {
         List<ProductResponseDto> products = productService.getActiveProducts();
@@ -56,14 +54,12 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // GET /api/products/{id} - Specifiek product ophalen
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponseDto> getProductById(@PathVariable Integer id) {
         ProductResponseDto product = productService.getProductById(id);
         return ResponseEntity.ok(product);
     }
 
-    // GET /api/products/search - Producten zoeken op naam
     @GetMapping("/search")
     public ResponseEntity<Map<String, Object>> searchProducts(@RequestParam String name) {
         List<ProductResponseDto> products = productService.searchProductsByName(name);
@@ -77,7 +73,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // GET /api/products/category/{category} - Producten per categorie
     @GetMapping("/category/{category}")
     public ResponseEntity<Map<String, Object>> getProductsByCategory(@PathVariable Category category) {
         List<ProductResponseDto> products = productService.getProductsByCategory(category);
@@ -91,7 +86,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // GET /api/products/brand/{brand} - Producten per merk
     @GetMapping("/brand/{brand}")
     public ResponseEntity<Map<String, Object>> getProductsByBrand(@PathVariable Brand brand) {
         List<ProductResponseDto> products = productService.getProductsByBrand(brand);
@@ -105,7 +99,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // GET /api/products/price-range - Producten binnen prijsrange
     @GetMapping("/price-range")
     public ResponseEntity<Map<String, Object>> getProductsByPriceRange(
             @RequestParam BigDecimal minPrice,
@@ -123,7 +116,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // GET /api/products/dance-shoes - Dansschoenen filteren
     @GetMapping("/dance-shoes")
     public ResponseEntity<Map<String, Object>> getDanceShoes(
             @RequestParam(required = false) Brand brand,
@@ -135,7 +127,7 @@ public class ProductController {
         if (brand != null && color != null && size != null) {
             products = productService.getDanceShoesByBrandColorAndSize(brand, color, size);
         } else {
-            // Fallback naar categorie Fashion
+
             products = productService.getProductsByCategory(Category.FASHION);
         }
 
@@ -152,7 +144,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // GET /api/products/categories - Alle categorieën
     @GetMapping("/categories")
     public ResponseEntity<Map<String, Object>> getCategories() {
         Category[] categories = Category.values();
@@ -165,7 +156,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // GET /api/products/brands - Alle merken
     @GetMapping("/brands")
     public ResponseEntity<Map<String, Object>> getBrands() {
         Brand[] brands = Brand.values();
@@ -178,7 +168,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // GET /api/products/sizes - Alle maten
     @GetMapping("/sizes")
     public ResponseEntity<Map<String, Object>> getSizes() {
         Size[] sizes = Size.values();
@@ -191,7 +180,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // GET /api/products/colors - Alle kleuren
     @GetMapping("/colors")
     public ResponseEntity<Map<String, Object>> getColors() {
         Color[] colors = Color.values();
@@ -204,7 +192,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    // POST /api/products - Nieuw product aanmaken
     @PostMapping
     public ResponseEntity<Map<String, Object>> createProduct(@Valid @RequestBody ProductRequestDto productDto) {
         ProductResponseDto product = productService.createProduct(productDto);

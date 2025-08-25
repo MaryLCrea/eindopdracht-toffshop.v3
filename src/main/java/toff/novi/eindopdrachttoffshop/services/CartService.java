@@ -11,6 +11,7 @@ import toff.novi.eindopdrachttoffshop.models.User;
 import toff.novi.eindopdrachttoffshop.repositories.CartRepository;
 import toff.novi.eindopdrachttoffshop.repositories.OrderItemRepository;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +44,7 @@ public class CartService {
                     User user = userService.getSingleUser(userId);
                     return cartRepository.save(new Cart(user));
                 });
+
 
         for (OrderItemRequestDto orderItemDto : orderItems) {
             Optional<OrderItem> existingItem = orderItemRepository
@@ -92,7 +94,6 @@ public class CartService {
         return new CartResponseDto(updatedCart);
     }
 
-    // 🔹 Nieuwe PUT-methode: volledige vervanging van een order item
     public CartResponseDto updateOrderItem(Integer userId, Integer orderItemId, OrderItemRequestDto orderItemRequestDto) {
         Cart cart = cartRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Cart not found for user with id " + userId));
@@ -104,7 +105,6 @@ public class CartService {
             throw new IllegalArgumentException("Order item does not belong to this user's cart or is not in cart status");
         }
 
-        // 🔄 volledige vervanging (PUT)
         orderItem.setProductName(orderItemRequestDto.getProductName());
         orderItem.setProductPrice(orderItemRequestDto.getProductPrice());
         orderItem.setQuantity(orderItemRequestDto.getQuantity());
@@ -148,4 +148,26 @@ public class CartService {
         cart.setUpdatedAt(LocalDateTime.now());
         cartRepository.save(cart);
     }
+
+     public CartResponseDto addOrderItem(Integer userId, String productName, BigDecimal productPrice, int quantity) {
+         Cart cart = cartRepository.findByUserId(userId)
+                 .orElseGet(() -> {
+                     User user = userService.getSingleUser(userId);
+                     return cartRepository.save(new Cart(user));
+                 }
+                 );
+
+         OrderItem orderItem = new OrderItem(productName, productPrice, quantity);
+         cart.addOrderItem(orderItem);
+         orderItemRepository.save(orderItem);
+
+
+         cart.setUpdatedAt(LocalDateTime.now());
+         Cart updatedCart = cartRepository.save(cart);
+
+         return new CartResponseDto(updatedCart);
+     }
+
+
+
 }

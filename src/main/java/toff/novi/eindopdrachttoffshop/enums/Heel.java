@@ -2,12 +2,10 @@ package toff.novi.eindopdrachttoffshop.enums;
 
 public enum Heel {
     FLAT("No Heel", 0.0),
-    XLOW("Mini", 2.5),
-    LOW("Laag", 3.5),
+    LOW("Mini", 2.5),
     MEDIUM("Middel", 5.0),
     HIGH("Hoog", 7.5),
-    XLHIGH("Extra Hoog", 10.0),
-    PLATFORM("Platform", 12.5);
+    PLATFORM("Platform", 10.0);
 
     private final String displayName;
     private final Double heightCm;

@@ -20,6 +20,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+
     public User createUser(UserRequestDto userRequestDto) {
        if (userRepository.existsByEmail(userRequestDto.getEmail())) {
             throw new IllegalArgumentException("Email already exists");

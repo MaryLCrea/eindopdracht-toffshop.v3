@@ -15,7 +15,6 @@ public class User {
     private String name;
     @Column(name = "email")
     private String email;
-    //  @Column(unique = true), @NotBlank, @Size(min = 3, max = 50)-> nog toepassen en error handling voor schrijven
     @Column(name = "password")
     private String password;
 
