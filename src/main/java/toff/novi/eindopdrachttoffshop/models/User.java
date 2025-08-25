@@ -1,6 +1,8 @@
 package toff.novi.eindopdrachttoffshop.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -13,11 +15,18 @@ public class User {
     private String name;
     @Column(name = "email")
     private String email;
-    @Column(name = "phone")
-    private String phone;
     //  @Column(unique = true), @NotBlank, @Size(min = 3, max = 50)-> nog toepassen en error handling voor schrijven
     @Column(name = "password")
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_name")
+    )
+    private Set<Role> roles;
+
 
 
     public User() {
@@ -26,15 +35,16 @@ public class User {
     public User(int id, String name, String email, String phone, String password) {
         this.name = name;
         this.email = email;
-        this.phone = phone;
         this.password = password;
     }
 
     public User(String name, String email, String phone, String password) {
         this.name = name;
         this.email = email;
-        this.phone = phone;
         this.password = password;
+    }
+
+    public User(String name, @Email String email, String password) {
     }
 
     public void setId(int id) {
@@ -57,17 +67,17 @@ public class User {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getPassword() { return password; } // TOEGEVOEGD
+
+    public Set<Role> getRoles() { return roles; } // TOEGEVOEGD
+    public void setRoles(Set<Role> roles) { this.roles = roles; } // TOEGEVOEGD
+
+    public String getUsername() { return email; } // TOEGEVOEGD, email als username
 
     @Override
     public String toString() {
@@ -75,7 +85,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", phone=" + phone +
+
                 '}';
     }
 

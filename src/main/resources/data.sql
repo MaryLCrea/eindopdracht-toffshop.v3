@@ -1,6 +1,20 @@
 --Users
-INSERT INTO users (name, email, phone, password)
-VALUES ('Piet Puk', 'piet@email.com', 0610203040, 'secret123'), ('Tessa Pluk', 'tessa@email.com', 0640506070, 'secret456'), ('Anna Jolie', 'anna@email.com', 0620304050, 'secret789');
+INSERT INTO users (name, email, password)
+VALUES
+('Piet Puk', 'piet@email.com', '$2a$10$7QpXxG1ZcJZ3s7Nv6FQ3eOZ5RVzXg5p8K8S/oh9pE3dfkJ7k9r9K6'),
+('Tessa Pluk', 'tessa@email.com', '$2a$10$E3fT6y1qRjFv2x8sLk9VjOe7B2bXk4QwC1HnD6rF9mJ0tPqR5S8aG');
+
+--Roles
+INSERT INTO roles (rolename)
+VALUES
+('ROLE_CUSTOMER'),
+('ROLE_ADMIN');
+
+-- User-Roles
+INSERT INTO user_roles (user_id, role_name)
+VALUES
+(1, 'ROLE_CUSTOMER'),
+(2, 'ROLE_ADMIN');
 
 -- Products
 INSERT INTO products (name, description, price, category, brand, color, heel, size, stock_quantity, is_active, created_at, updated_at)
@@ -21,20 +35,24 @@ VALUES
 
 -- Carts
 INSERT INTO carts (user_id, created_at, updated_at)
-VALUES(1, '2025-01-15 10:00:00', '2025-01-15 14:30:00'),
-      (2, '2025-01-14 09:15:00', '2025-01-14 16:45:00');
+VALUES
+(1, '2025-01-15 10:00:00', '2025-01-15 14:30:00'),
+(2, '2025-01-14 09:15:00', '2025-01-14 16:45:00');
 
 -- Order_Items winkelwagenPD025
 INSERT INTO order_items  (cart_id, order_id, product_name, product_price, quantity, status)
-VALUES(1, NULL, 'PortDance PD025 Latin', 129.99, 1, 'INCART'),
-      (1, NULL, 'Yoga Mat Premium', 45.99, 1, 'CANCELLED');
+VALUES
+(1, NULL, 'PortDance PD025 Latin', 129.99, 1, 'INCART'),
+(1, NULL, 'Yoga Mat Premium', 45.99, 1, 'CANCELLED');
 
 -- Order_Items winkelwagen 2
 INSERT INTO order_items (cart_id, order_id, product_name, product_price, quantity, status)
-VALUES (2, 1001, 'Ray Rose 825 Ballroom', 149.99, 1, 'ORDERED'),
-       (2, 1001, 'Coffee Machine Deluxe', 299.99, 1, 'SHIPPED');
+VALUES
+(2, 1001, 'Ray Rose 825 Ballroom', 149.99, 1, 'ORDERED'),
+(2, 1001, 'Coffee Machine Deluxe', 299.99, 1, 'SHIPPED');
 
 -- Contacts
 INSERT INTO contacts (name, email, subject, message, created_at, is_read)
-VALUES ('Emma de Vries', 'emma@email.nl', 'Vraag over dansschoenen', 'Hallo, ik zou graag willen weten welke maat ik moet bestellen voor de PortDance schoenen. Ik heb normaal maat 38.', '2025-01-20 14:30:00', false),
-       ('Tom Janssen', 'tom@email.nl', 'Retour aanvraag', 'De Ray Rose schoenen die ik heb besteld zijn te klein. Kan ik deze retourneren voor een grotere maat?', '2025-01-19 16:45:00', true);
+VALUES
+('Emma de Vries', 'emma@email.nl', 'Vraag over dansschoenen', 'Hallo, ik zou graag willen weten welke maat ik moet bestellen voor de PortDance schoenen. Ik heb normaal maat 38.', '2025-01-20 14:30:00', false),
+('Tom Janssen', 'tom@email.nl', 'Retour aanvraag', 'De Ray Rose schoenen die ik heb besteld zijn te klein. Kan ik deze retourneren voor een grotere maat?', '2025-01-19 16:45:00', true);

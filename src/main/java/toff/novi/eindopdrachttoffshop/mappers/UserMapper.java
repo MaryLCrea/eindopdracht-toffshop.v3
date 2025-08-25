@@ -7,7 +7,7 @@ import toff.novi.eindopdrachttoffshop.models.User;
 public class UserMapper {
 
     public static User toEntity(UserRequestDto userRequestDto) {
-        User user = new User(userRequestDto.name, userRequestDto.email, userRequestDto.phone, userRequestDto.password);
+        User user = new User(userRequestDto.name, userRequestDto.email, userRequestDto.password);
         return user;
     }
 

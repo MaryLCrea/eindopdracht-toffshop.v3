@@ -14,8 +14,7 @@ public class UserResponseDto {
         this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
-        this.phone = user.getPhone();
-    }
+          }
 
     public int getId() {
         return id;
