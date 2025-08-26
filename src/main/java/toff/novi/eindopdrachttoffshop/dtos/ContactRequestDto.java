@@ -22,7 +22,8 @@ public class ContactRequestDto {
     @Size(max = 1000, message = "Message may contain up to 1000 characters")
     private String message;
 
-    public ContactRequestDto() {}
+    public ContactRequestDto() {
+    }
 
     public ContactRequestDto(String name, String email, String subject, String message) {
         this.name = name;

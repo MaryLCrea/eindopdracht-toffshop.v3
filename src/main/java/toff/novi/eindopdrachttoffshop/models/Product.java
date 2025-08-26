@@ -2,6 +2,7 @@ package toff.novi.eindopdrachttoffshop.models;
 
 import jakarta.persistence.*;
 import toff.novi.eindopdrachttoffshop.enums.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

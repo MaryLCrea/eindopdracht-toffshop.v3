@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import toff.novi.eindopdrachttoffshop.enums.*;
+
 import java.math.BigDecimal;
 
 public class ProductRequestDto {
@@ -34,7 +35,8 @@ public class ProductRequestDto {
 
     private Boolean isActive = true;
 
-    public ProductRequestDto() {}
+    public ProductRequestDto() {
+    }
 
     public ProductRequestDto(String name, String description, BigDecimal price, Category category, Integer stockQuantity) {
         this.name = name;

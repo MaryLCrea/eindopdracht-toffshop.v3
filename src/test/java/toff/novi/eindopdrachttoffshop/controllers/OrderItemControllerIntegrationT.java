@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("test")
 @Transactional
-class OrderItemControllerIntegrationTest {
+class OrderItemControllerIntegrationT {
 
     @Autowired
     private UserService userService;

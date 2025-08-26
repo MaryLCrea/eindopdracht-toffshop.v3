@@ -7,8 +7,8 @@ VALUES
 --Roles
 INSERT INTO roles (rolename)
 VALUES
-    ('ROLE_CUSTOMER'),
-    ('ROLE_ADMIN');
+ ('ROLE_CUSTOMER'),
+ ('ROLE_ADMIN');
 
 -- User-Roles
 INSERT INTO user_roles (user_id, role_name)

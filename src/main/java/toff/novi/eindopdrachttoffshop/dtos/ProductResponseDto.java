@@ -2,6 +2,7 @@ package toff.novi.eindopdrachttoffshop.dtos;
 
 import toff.novi.eindopdrachttoffshop.models.Product;
 import toff.novi.eindopdrachttoffshop.enums.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -25,7 +26,8 @@ public class ProductResponseDto {
     private String imageName;
     private String imageUrl;
 
-    public ProductResponseDto() {}
+    public ProductResponseDto() {
+    }
 
     public ProductResponseDto(Product product) {
         this.id = product.getId();
@@ -166,6 +168,7 @@ public class ProductResponseDto {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
     public String getImageName() {
         return imageName;
     }

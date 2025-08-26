@@ -22,8 +22,7 @@ public class MyUserDetailsService implements UserDetailsService {
         if (ou.isPresent()) {
             User user = ou.get();
             return new MyUserDetails(user);
-        }
-        else {
+        } else {
             throw new UsernameNotFoundException(username);
         }
     }

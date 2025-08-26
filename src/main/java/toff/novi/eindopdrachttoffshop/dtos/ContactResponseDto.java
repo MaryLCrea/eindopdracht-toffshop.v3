@@ -1,6 +1,7 @@
 package toff.novi.eindopdrachttoffshop.dtos;
 
 import toff.novi.eindopdrachttoffshop.models.Contact;
+
 import java.time.LocalDateTime;
 
 public class ContactResponseDto {
@@ -13,7 +14,8 @@ public class ContactResponseDto {
     private LocalDateTime createdAt;
     private Boolean isRead;
 
-    public ContactResponseDto() {}
+    public ContactResponseDto() {
+    }
 
     public ContactResponseDto(Contact contact) {
         this.id = contact.getId();

@@ -29,7 +29,7 @@ public class ContactController {
         List<ContactResponseDto> createdContacts = contactRequestDtos.stream()
                 .map(contactService::createContact)
                 .toList();
-              URI uri = createdContacts.isEmpty() ? null :
+        URI uri = createdContacts.isEmpty() ? null :
                 UriHelper.createUri("contacts", String.valueOf(createdContacts.get(0).getId()));
         return ResponseEntity.created(uri).body(createdContacts);
     }

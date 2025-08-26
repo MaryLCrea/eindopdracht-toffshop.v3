@@ -2,6 +2,7 @@ package toff.novi.eindopdrachttoffshop.dtos;
 
 import toff.novi.eindopdrachttoffshop.models.OrderItem;
 import toff.novi.eindopdrachttoffshop.enums.OrderItemStatus;
+
 import java.math.BigDecimal;
 
 public class OrderItemResponseDto {
@@ -14,7 +15,8 @@ public class OrderItemResponseDto {
     private OrderItemStatus status;
     private Integer orderId;
 
-    public OrderItemResponseDto() {}
+    public OrderItemResponseDto() {
+    }
 
     public OrderItemResponseDto(OrderItem orderItem) {
         this.id = orderItem.getId();

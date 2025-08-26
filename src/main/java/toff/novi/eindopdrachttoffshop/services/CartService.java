@@ -149,25 +149,24 @@ public class CartService {
         cartRepository.save(cart);
     }
 
-     public CartResponseDto addOrderItem(Integer userId, String productName, BigDecimal productPrice, int quantity) {
-         Cart cart = cartRepository.findByUserId(userId)
-                 .orElseGet(() -> {
-                     User user = userService.getSingleUser(userId);
-                     return cartRepository.save(new Cart(user));
-                 }
-                 );
+    public CartResponseDto addOrderItem(Integer userId, String productName, BigDecimal productPrice, int quantity) {
+        Cart cart = cartRepository.findByUserId(userId)
+                .orElseGet(() -> {
+                            User user = userService.getSingleUser(userId);
+                            return cartRepository.save(new Cart(user));
+                        }
+                );
 
-         OrderItem orderItem = new OrderItem(productName, productPrice, quantity);
-         cart.addOrderItem(orderItem);
-         orderItemRepository.save(orderItem);
+        OrderItem orderItem = new OrderItem(productName, productPrice, quantity);
+        cart.addOrderItem(orderItem);
+        orderItemRepository.save(orderItem);
 
 
-         cart.setUpdatedAt(LocalDateTime.now());
-         Cart updatedCart = cartRepository.save(cart);
+        cart.setUpdatedAt(LocalDateTime.now());
+        Cart updatedCart = cartRepository.save(cart);
 
-         return new CartResponseDto(updatedCart);
-     }
-
+        return new CartResponseDto(updatedCart);
+    }
 
 
 }

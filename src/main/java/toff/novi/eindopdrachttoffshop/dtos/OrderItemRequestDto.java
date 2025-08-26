@@ -21,7 +21,8 @@ public class OrderItemRequestDto {
     private Integer quantity;
     private OrderItemStatus status;
 
-    public OrderItemRequestDto() {}
+    public OrderItemRequestDto() {
+    }
 
     public OrderItemRequestDto(String productName, BigDecimal productPrice, Integer quantity) {
         this.productName = productName;

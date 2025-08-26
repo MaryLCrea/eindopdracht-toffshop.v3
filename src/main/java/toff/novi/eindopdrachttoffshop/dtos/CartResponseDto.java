@@ -1,6 +1,7 @@
 package toff.novi.eindopdrachttoffshop.dtos;
 
 import toff.novi.eindopdrachttoffshop.models.Cart;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +17,8 @@ public class CartResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public CartResponseDto() {}
+    public CartResponseDto() {
+    }
 
     public CartResponseDto(Cart cart) {
         this.id = cart.getId();

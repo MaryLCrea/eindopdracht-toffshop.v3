@@ -70,19 +70,19 @@ public class User {
 
     public String getPassword() {
         return password;
-    } // TOEGEVOEGD
+    }
 
     public Set<Role> getRoles() {
         return roles;
-    } // TOEGEVOEGD
+    }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    } // TOEGEVOEGD
+    }
 
     public String getUsername() {
         return email;
-    } // TOEGEVOEGD, email als username
+    }
 
     @Override
     public String toString() {

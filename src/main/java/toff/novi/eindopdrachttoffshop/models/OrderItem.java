@@ -2,6 +2,7 @@ package toff.novi.eindopdrachttoffshop.models;
 
 import jakarta.persistence.*;
 import toff.novi.eindopdrachttoffshop.enums.OrderItemStatus;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -32,7 +33,8 @@ public class OrderItem {
     @Column(nullable = false)
     private OrderItemStatus status = OrderItemStatus.INCART;
 
-    public OrderItem() {}
+    public OrderItem() {
+    }
 
     public OrderItem(String productName, BigDecimal productPrice, Integer quantity) {
         this.productName = productName;

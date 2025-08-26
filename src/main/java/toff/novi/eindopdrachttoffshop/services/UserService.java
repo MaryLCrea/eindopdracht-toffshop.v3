@@ -22,7 +22,7 @@ public class UserService {
 
 
     public User createUser(UserRequestDto userRequestDto) {
-       if (userRepository.existsByEmail(userRequestDto.getEmail())) {
+        if (userRepository.existsByEmail(userRequestDto.getEmail())) {
             throw new IllegalArgumentException("Email already exists");
         }
 
@@ -41,7 +41,7 @@ public class UserService {
     }
 
     public List<User> findAll() {
-            return null;
+        return null;
     }
 
     public UserResponseDto updateUser(Integer id, UserRequestDto newUser) {
@@ -55,7 +55,8 @@ public class UserService {
         User updatedUser = userRepository.save(existingUser);
         return UserMapper.toResponseDto(updatedUser);
 
-             }
+    }
+
     public void deleteUser(int id) {
         userRepository.deleteById(id);
     }
