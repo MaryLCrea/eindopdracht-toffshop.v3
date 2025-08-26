@@ -1,22 +1,22 @@
 --Users
 INSERT INTO users (name, email, password)
 VALUES
-('Piet Puk', 'piet@email.com', '$2a$10$6Gx2G9vZpXhT8T2r7XfDgOqYxX9h5Fh5F6PzBq5uQ5wzQpJtZfM2K'),
-('Tessa Pluk', 'tessa@email.com', '$2a$10$yHhKk9wZtTzFqR8v8V9xMe5w6k5G7w5zBq6Fh5Fh2qzV7xR1K9a4S');
+('Piet Puk', 'piet@email.com', '$2a$14$xA9v7sQGqiniWdh0AE0qQ.BlERiBbk60FaJRWdFg3wBWLgKH.pIK2'),
+('Tessa Pluk', 'tessa@email.com', '$2a$14$vwtLcU.9HivcnD8Ne7SHMeGaXP.SVDJCujqRe4.KCtXTHpfuSVE6q');
 
--- --Roles
--- INSERT INTO roles (rolename)
--- VALUES
---     ('ROLE_CUSTOMER'),
---     ('ROLE_ADMIN');
---
--- -- User-Roles
--- INSERT INTO user_roles (user_id, role_name)
--- VALUES
--- (1,   'ROLE_CUSTOMER'),
--- (2,  'ROLE_ADMIN');
+--Roles
+INSERT INTO roles (rolename)
+VALUES
+    ('ROLE_CUSTOMER'),
+    ('ROLE_ADMIN');
 
--- Products
+-- User-Roles
+INSERT INTO user_roles (user_id, role_name)
+VALUES
+(1,  'ROLE_CUSTOMER'),
+(2,  'ROLE_ADMIN');
+
+--Products
 INSERT INTO products (name, description, price, category, brand, color, heel, size, stock_quantity, is_active, created_at, updated_at)
 VALUES
 ('PortDance PD025 Latin', 'Professional Latin dance shoes with suede sole and ankle strap', 129.99, 'FASHION', 'PORTDANCE', 'BLACK', 'HIGH', 'SIZE_38', 15, true, '2025-01-10 10:00:00', '2025-01-15 14:30:00'),

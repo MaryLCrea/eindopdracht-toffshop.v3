@@ -74,7 +74,6 @@ De applicatie start automatisch met de volgende testgebruikers:
 ID	Naam 	     Email	     Telefoon	    Wachtwoord
 1	Piet Puk	piet@email.com	0610203040	secret123
 2	Tessa Pluk	tessa@email.com	0640506070	secret456
-3	Anna Jolie	anna@email.com	620304050	secret789
 
 Test Data Overzicht in data.sql
 3 gebruikers met verschillende profielen
@@ -116,6 +115,7 @@ GET http://localhost:8080/files/download/{image.jpg}
 - het kan ook een url zijn {image_url}
 
 ## 6. REST-endpoints
+Alle endpoints staan open om te testen behalve de DEL en zoekfunctie, er zit nog geen auth- en identicatie op.
       
 ### Users Endpoints (/users):
 GET/users # Alle gebruikers ophalen 
