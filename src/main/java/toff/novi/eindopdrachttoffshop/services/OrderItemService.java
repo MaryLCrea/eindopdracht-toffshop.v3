@@ -55,7 +55,7 @@ public class OrderItemService {
     }
 
     public List<OrderItemResponseDto> getOrderItemsByOrderId(Integer orderId) {
-        return orderItemRepository.findByOrderId(orderId)
+        return orderItemRepository.findByOrder_Id(orderId)
                 .stream()
                 .map(OrderItemResponseDto::new)
                 .collect(Collectors.toList());
