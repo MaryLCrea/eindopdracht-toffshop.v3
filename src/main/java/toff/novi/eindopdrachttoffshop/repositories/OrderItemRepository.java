@@ -17,7 +17,7 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 
     Optional<OrderItem> findByCartIdAndProductNameAndStatus(Integer cartId, String productName, OrderItemStatus status);
 
-    List<OrderItem> findByOrderId(Integer orderId);
+    List<OrderItem> findByOrder_Id(Integer orderId);
 
     List<OrderItem> findByStatus(OrderItemStatus status);
 }
