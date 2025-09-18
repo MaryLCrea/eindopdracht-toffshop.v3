@@ -11,7 +11,7 @@ VALUES ('ROLE_USER'), ('ROLE_ADMIN');
 -- User-Roles
 INSERT INTO user_roles (user_id, role_name)
 VALUES
-    (1,  'ROLE_USER'),
+    (1,  'ROLE_ADMIN'),
     (2,  'ROLE_ADMIN');
 
 --Products
@@ -39,7 +39,8 @@ VALUES
 
 -- Orders
 INSERT INTO orders (id, created_at, updated_at, status) VALUES
-    (1001, '2025-09-13 12:00:00', '2025-09-13 12:00:00', 'ORDERED');
+    (1001, '2025-09-13 12:00:00', '2025-09-13 12:00:00', 'ORDERED'),
+    (1002, '2025-09-14 13:10:00', '2025-09-13 13:10:00', 'ORDERED');
 
 -- Order_Items winkelwagen 1
 INSERT INTO order_items  (cart_id, order_id, product_name, product_price, quantity, status)
