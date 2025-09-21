@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import toff.novi.eindopdrachttoffshop.dtos.UserRequestDto;
 import toff.novi.eindopdrachttoffshop.dtos.UserResponseDto;
 import toff.novi.eindopdrachttoffshop.exceptions.ResourceNotFoundException;
+import toff.novi.eindopdrachttoffshop.exceptions.UserAlreadyExistsException;
 import toff.novi.eindopdrachttoffshop.mappers.UserMapper;
 import toff.novi.eindopdrachttoffshop.models.Role;
 import toff.novi.eindopdrachttoffshop.models.User;
@@ -32,7 +33,9 @@ public class UserService {
 
     public UserResponseDto createUser(UserRequestDto userRequestDto) {
         if (userRepository.existsByEmail(userRequestDto.getEmail())) {
-            throw new IllegalArgumentException("Email already exists");
+            throw new UserAlreadyExistsException(
+                    "Email already exists: " + userRequestDto.getEmail()
+            );
         }
 
         User user = UserMapper.toEntity(userRequestDto);
@@ -48,7 +51,6 @@ public class UserService {
         user.setRoles(roles);
 
         User savedUser = userRepository.save(user);
-
 
         return UserMapper.toResponseDto(savedUser);
     }
@@ -70,11 +72,16 @@ public class UserService {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
+        if (userRepository.existsByEmail(newUser.getEmail()) &&
+                !existingUser.getEmail().equals(newUser.getEmail())) {
+            throw new UserAlreadyExistsException(
+                    "Email already exists: " + newUser.getEmail()
+            );
+        }
+
         existingUser.setName(newUser.getName());
         existingUser.setEmail(newUser.getEmail());
-
         existingUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-
 
         User updatedUser = userRepository.save(existingUser);
         return UserMapper.toResponseDto(updatedUser);

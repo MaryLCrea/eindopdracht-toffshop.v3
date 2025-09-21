@@ -9,10 +9,10 @@ INSERT INTO roles(rolename)
 VALUES ('ROLE_USER'), ('ROLE_ADMIN');
 
 -- User-Roles
-INSERT INTO user_roles (user_id, role_name)
+INSERT INTO user_roles (user_id, rolename)
 VALUES
     (1,  'ROLE_ADMIN'),
-    (2,  'ROLE_ADMIN');
+    (2,  'ROLE_USER');
 
 --Products
 INSERT INTO products (name, description, price, category, brand, color, heel, size, stock_quantity, is_active, created_at, updated_at)
