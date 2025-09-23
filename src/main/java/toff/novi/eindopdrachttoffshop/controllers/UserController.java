@@ -49,6 +49,7 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getUserById(@PathVariable Integer id) {
         return ResponseEntity.ok(UserMapper.toResponseDto(this.userService.getSingleUser(id)));

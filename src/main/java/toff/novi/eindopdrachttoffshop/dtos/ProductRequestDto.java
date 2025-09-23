@@ -5,6 +5,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import toff.novi.eindopdrachttoffshop.enums.*;
+import toff.novi.eindopdrachttoffshop.enums.Brand;
+import toff.novi.eindopdrachttoffshop.enums.Color;
+import toff.novi.eindopdrachttoffshop.enums.Heel;
+import toff.novi.eindopdrachttoffshop.enums.Size;
 
 import java.math.BigDecimal;
 

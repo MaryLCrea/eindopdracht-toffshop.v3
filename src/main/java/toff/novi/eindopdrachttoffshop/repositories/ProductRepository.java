@@ -1,5 +1,9 @@
 package toff.novi.eindopdrachttoffshop.repositories;
 
+import toff.novi.eindopdrachttoffshop.enums.Brand;
+import toff.novi.eindopdrachttoffshop.enums.Color;
+import toff.novi.eindopdrachttoffshop.enums.Heel;
+import toff.novi.eindopdrachttoffshop.enums.Size;
 import toff.novi.eindopdrachttoffshop.models.Product;
 import toff.novi.eindopdrachttoffshop.enums.*;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -46,6 +50,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "AND (?2 IS NULL OR p.color = ?2) " +
             "AND (?3 IS NULL OR p.size = ?3) " +
             "AND (?4 IS NULL OR p.heel = ?4)")
+
     List<Product> findByMultipleCriteria(Brand brand, Color color, Size size, Heel heel);
 
 

@@ -1,5 +1,9 @@
 package toff.novi.eindopdrachttoffshop.dtos;
 
+import toff.novi.eindopdrachttoffshop.enums.Brand;
+import toff.novi.eindopdrachttoffshop.enums.Color;
+import toff.novi.eindopdrachttoffshop.enums.Heel;
+import toff.novi.eindopdrachttoffshop.enums.Size;
 import toff.novi.eindopdrachttoffshop.models.Product;
 import toff.novi.eindopdrachttoffshop.enums.*;
 
