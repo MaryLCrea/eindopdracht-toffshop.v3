@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import toff.novi.eindopdrachttoffshop.dtos.AuthDto;
 import toff.novi.eindopdrachttoffshop.security.JwtService;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/auth")
 public class AuthController {
 
     private final AuthenticationManager authManager;
@@ -25,22 +28,30 @@ public class AuthController {
         this.jwtService = jwtService;
     }
 
-    @PostMapping("/auth")
+    @PostMapping
     public ResponseEntity<Object> signIn(@RequestBody AuthDto authDto) {
         UsernamePasswordAuthenticationToken up =
                 new UsernamePasswordAuthenticationToken(authDto.email, authDto.password);
 
         try {
             Authentication auth = authManager.authenticate(up);
-
             UserDetails ud = (UserDetails) auth.getPrincipal();
-            String token = jwtService.generateToken(ud);
+
+            List<String> roles = ud.getAuthorities()
+                    .stream()
+                    .map(a -> {
+                        String r = a.getAuthority();
+                        return r.startsWith("ROLE_") ? r.substring(5) : r;
+                    })
+                    .collect(Collectors.toList());
+
+            String token = jwtService.generateToken(ud, roles);
 
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-                    .body("Token generated");
-        }
-        catch (AuthenticationException ex) {
+                    .body("Token generated successfully");
+
+        } catch (AuthenticationException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
         }
     }

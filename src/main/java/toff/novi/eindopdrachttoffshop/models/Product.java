@@ -2,6 +2,10 @@ package toff.novi.eindopdrachttoffshop.models;
 
 import jakarta.persistence.*;
 import toff.novi.eindopdrachttoffshop.enums.*;
+import toff.novi.eindopdrachttoffshop.enums.Brand;
+import toff.novi.eindopdrachttoffshop.enums.Color;
+import toff.novi.eindopdrachttoffshop.enums.Heel;
+import toff.novi.eindopdrachttoffshop.enums.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
