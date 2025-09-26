@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
@@ -20,7 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByIsActiveTrue();
 
 
-    List<Product> findByNameContainingIgnoreCase(String name);
+    List<Product> findByProductNameContainingIgnoreCase(String productName);
 
 
     List<Product> findByIsActiveTrueAndCategory(Category category);
@@ -54,7 +55,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByMultipleCriteria(Brand brand, Color color, Size size, Heel heel);
 
 
-    List<Product> findByNameContainingIgnoreCaseAndCategory(String name, Category category);
+    List<Product> findByProductNameContainingIgnoreCaseAndCategory(String name, Category category);
 
 
     @Query("SELECT COUNT(p) FROM Product p WHERE p.isActive = true AND p.category = ?1")
@@ -63,4 +64,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query("SELECT p FROM Product p WHERE p.isActive = true AND p.stockQuantity <= ?1")
     List<Product> findLowStockProducts(Integer threshold);
+
+    Optional<Product> findBySku(String sku);
+
 }

@@ -35,7 +35,7 @@ public class ProductResponseDto {
 
     public ProductResponseDto(Product product) {
         this.id = product.getId();
-        this.name = product.getName();
+        this.name = product.getProductName();
         this.description = product.getDescription();
         this.price = product.getPrice();
         this.category = product.getCategory();

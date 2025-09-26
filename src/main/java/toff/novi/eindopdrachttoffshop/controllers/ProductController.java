@@ -65,14 +65,14 @@ public class ProductController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Map<String, Object>> searchProducts(@RequestParam String name) {
-        List<ProductResponseDto> products = productService.searchProductsByName(name);
+    public ResponseEntity<Map<String, Object>> searchProducts(@RequestParam String productName) {
+        List<ProductResponseDto> products = productService.searchProductsByName(productName);
 
         Map<String, Object> response = new HashMap<>();
         response.put("products", products);
         response.put("total", products.size());
-        response.put("searchTerm", name);
-        response.put("message", "Zoekresultaten voor: " + name);
+        response.put("searchTerm", productName);
+        response.put("message", "Zoekresultaten voor: " + productName);
 
         return ResponseEntity.ok(response);
     }

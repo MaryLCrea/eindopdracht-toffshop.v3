@@ -69,7 +69,7 @@ public class JwtService {
     }
 
     private String createToken(Map<String, Object> claims, String subject) {
-        long validPeriod = 1000 * 60 * 60 * 60; // 60 uur
+        long validPeriod = 1000 * 60 * 60 * 60;
         long currentTime = System.currentTimeMillis();
 
         return Jwts.builder()

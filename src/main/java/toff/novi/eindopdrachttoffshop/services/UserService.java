@@ -31,6 +31,16 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User with email " + email + " not found"));
+    }
+
+    public User findByUsername(String username) {
+        return userRepository.findByEmail(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with username " + username));
+    }
+
     public UserResponseDto createUser(UserRequestDto userRequestDto) {
         if (userRepository.existsByEmail(userRequestDto.getEmail())) {
             throw new UserAlreadyExistsException(

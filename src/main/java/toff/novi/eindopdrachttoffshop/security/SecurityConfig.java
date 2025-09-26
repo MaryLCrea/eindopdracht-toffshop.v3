@@ -52,26 +52,35 @@ public class SecurityConfig {
         http
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/auth").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
 
-                                .requestMatchers("/cart").authenticated()
+                      .requestMatchers(HttpMethod.POST, "/auth").permitAll()
+                      .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                      .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+                      .requestMatchers(HttpMethod.GET, "/users/*").authenticated()
+                      .requestMatchers(HttpMethod.DELETE, "/users/*").authenticated()
+                      .requestMatchers(HttpMethod.PUT, "/users/*").authenticated()
 
+                      .requestMatchers(HttpMethod.POST, "/carts/user/*/items").hasRole("ADMIN")
+                      .requestMatchers(HttpMethod.POST, "/carts/me/items").authenticated()
+                      .requestMatchers(HttpMethod.GET, "/carts/user/*").hasRole("ADMIN")
+                      .requestMatchers(HttpMethod.PUT, "/carts/user/*/items/*").hasRole("ADMIN")
+                      .requestMatchers(HttpMethod.DELETE, "/user/{userId}/items/**").hasAnyRole("CUSTOMER", "ADMIN")
+                      .requestMatchers(HttpMethod.DELETE, "/user/{userId}/clear").hasAnyRole("CUSTOMER", "ADMIN")
 
+                      .requestMatchers(HttpMethod.POST, "/contacts").permitAll()
+                      .requestMatchers(HttpMethod.GET, "/contacts/unread").hasRole("ADMIN")
+                      .requestMatchers(HttpMethod.GET, "/contacts").authenticated()
+                      .requestMatchers(HttpMethod.GET, "/contacts/*").authenticated()
+                      .requestMatchers(HttpMethod.GET, "/contacts/search").authenticated()
+                      .requestMatchers(HttpMethod.PATCH, "/contacts/*/unread").authenticated()
+                      .requestMatchers(HttpMethod.DELETE, "/contacts/*").authenticated()
 
-                        .requestMatchers("/users", "/users/*").authenticated()
+                      .requestMatchers(HttpMethod.GET, "/order-items/status/*").hasRole("ADMIN")
+                      .requestMatchers(HttpMethod.GET, "/order-items/user/*").authenticated()
+                      .requestMatchers(HttpMethod.GET, "/order-items/user/*/status/*").authenticated()
+                      .requestMatchers(HttpMethod.GET, "/order-items/*").authenticated()
 
-
-
-                        .requestMatchers("/users", "/users/*").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/contacts").permitAll()
-
-
-
-
-
-
-//                        .anyRequest().denyAll()
+                      .anyRequest().denyAll()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf -> csrf.disable())

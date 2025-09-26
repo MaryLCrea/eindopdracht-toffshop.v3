@@ -16,10 +16,14 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id")
     private Integer id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "SKU", unique = true, nullable = false)
+    private String sku;
+
+    @Column(name = "product_name", nullable = false)
+    private String productName;
 
     @Column(name = "description", length = 600)
     private String description;
@@ -66,9 +70,10 @@ public class Product {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public Product(String name, String description, BigDecimal price, Category category) {
+    public Product(String productName, String description, BigDecimal price, Category category) {
         this();
-        this.name = name;
+        this.sku = sku;
+        this.productName = productName;
         this.description = description;
         this.price = price;
         this.category = category;
@@ -88,17 +93,20 @@ public class Product {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Integer item_id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getSku() {
+        return sku;
     }
+
+    public String getProductName() { return productName; }
+    public void setProductName(String productName) { this.productName = productName; }
 
     public String getDescription() {
         return description;
@@ -230,7 +238,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", productName='" + productName + '\'' +
                 ", category=" + category +
                 ", brand=" + brand +
                 ", price=" + price +

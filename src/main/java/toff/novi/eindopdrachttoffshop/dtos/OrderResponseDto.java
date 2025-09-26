@@ -1,6 +1,6 @@
 package toff.novi.eindopdrachttoffshop.dtos;
 
-import toff.novi.eindopdrachttoffshop.enums.OrderItemStatus;
+import toff.novi.eindopdrachttoffshop.enums.OrderAndItemStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -10,7 +10,7 @@ public class OrderResponseDto {
     private Integer id;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private OrderItemStatus status;
+    private OrderAndItemStatus status;
     private List<OrderItemResponseDto> items;
     private BigDecimal totalPrice;
 
@@ -38,11 +38,11 @@ public class OrderResponseDto {
         this.items = items;
     }
 
-    public OrderItemStatus getStatus() {
+    public OrderAndItemStatus getStatus() {
         return status;
     }
 
-    public void setStatus(OrderItemStatus status) {
+    public void setStatus(OrderAndItemStatus status) {
         this.status = status;
     }
 

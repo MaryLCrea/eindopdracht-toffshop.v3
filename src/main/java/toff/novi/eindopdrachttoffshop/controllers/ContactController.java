@@ -46,24 +46,6 @@ public class ContactController {
         return ResponseEntity.ok(contacts);
     }
 
-    @GetMapping("/read")
-    public ResponseEntity<List<ContactResponseDto>> getReadContacts() {
-        List<ContactResponseDto> contacts = contactService.getReadContacts();
-        return ResponseEntity.ok(contacts);
-    }
-
-    @GetMapping("/unread/count")
-    public ResponseEntity<Map<String, Long>> getUnreadCount() {
-        long count = contactService.getUnreadCount();
-        return ResponseEntity.ok(Map.of("unreadCount", count));
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ContactResponseDto> getContactById(@PathVariable Integer id) {
-        ContactResponseDto contact = contactService.getContactById(id);
-        return ResponseEntity.ok(contact);
-    }
-
     @GetMapping("/search")
     public ResponseEntity<List<ContactResponseDto>> searchBySubject(@RequestParam String subject) {
         List<ContactResponseDto> contacts = contactService.searchBySubject(subject);
@@ -73,12 +55,6 @@ public class ContactController {
     @PatchMapping("/{id}/read")
     public ResponseEntity<ContactResponseDto> markAsRead(@PathVariable Integer id) {
         ContactResponseDto updatedContact = contactService.markAsRead(id);
-        return ResponseEntity.ok(updatedContact);
-    }
-
-    @PatchMapping("/{id}/unread")
-    public ResponseEntity<ContactResponseDto> markAsUnread(@PathVariable Integer id) {
-        ContactResponseDto updatedContact = contactService.markAsUnread(id);
         return ResponseEntity.ok(updatedContact);
     }
 
