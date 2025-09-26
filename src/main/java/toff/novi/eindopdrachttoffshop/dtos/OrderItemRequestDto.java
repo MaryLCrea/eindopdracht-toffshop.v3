@@ -3,7 +3,7 @@ package toff.novi.eindopdrachttoffshop.dtos;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import toff.novi.eindopdrachttoffshop.enums.OrderItemStatus;
+import toff.novi.eindopdrachttoffshop.enums.OrderAndItemStatus;
 
 import java.math.BigDecimal;
 
@@ -19,7 +19,9 @@ public class OrderItemRequestDto {
     @NotNull(message = "Quantity is required")
     @Positive(message = "Quantity must be positive")
     private Integer quantity;
-    private OrderItemStatus status;
+    private OrderAndItemStatus status;
+
+    private String sku;
 
     public OrderItemRequestDto() {
     }
@@ -30,11 +32,11 @@ public class OrderItemRequestDto {
         this.quantity = quantity;
     }
 
-    public OrderItemStatus getStatus() {
+    public OrderAndItemStatus getStatus() {
         return status;
     }
 
-    public void setStatus(OrderItemStatus status) {
+    public void setStatus(OrderAndItemStatus status) {
         this.status = status;
     }
 
@@ -45,6 +47,15 @@ public class OrderItemRequestDto {
     public void setProductName(String productName) {
         this.productName = productName;
     }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
 
     public BigDecimal getProductPrice() {
         return productPrice;

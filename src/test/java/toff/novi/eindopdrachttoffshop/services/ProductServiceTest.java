@@ -41,7 +41,7 @@ class ProductServiceTest {
 
         testProduct = new Product();
         testProduct.setId(1);
-        testProduct.setName("Dansschoenen");
+        testProduct.setProductName("Dansschoenen");
         testProduct.setDescription("Standaard dansschoenen");
         testProduct.setPrice(new BigDecimal("99.99"));
         testProduct.setCategory(Category.FASHION);
@@ -58,7 +58,7 @@ class ProductServiceTest {
         when(productRepository.save(any(Product.class))).thenReturn(testProduct);
 
         ProductRequestDto dto = new ProductRequestDto();
-        dto.setName("Dansschoenen");
+        dto.setProductName("Dansschoenen");
         dto.setDescription("Standaard dansschoenen");
         dto.setPrice(new BigDecimal("99.99"));
         dto.setCategory(Category.FASHION);
@@ -110,7 +110,7 @@ class ProductServiceTest {
         when(productRepository.save(any(Product.class))).thenReturn(testProduct);
 
         ProductRequestDto updateRequest = new ProductRequestDto();
-        updateRequest.setName("Dansschoenen Ultra");
+        updateRequest.setProductName("Dansschoenen Ultra");
         updateRequest.setDescription("Verbeterde dansschoenen");
         updateRequest.setPrice(new BigDecimal("129.99"));
         updateRequest.setCategory(testProduct.getCategory());

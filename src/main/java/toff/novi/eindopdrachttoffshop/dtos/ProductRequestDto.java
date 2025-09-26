@@ -16,7 +16,7 @@ public class ProductRequestDto {
 
     @NotBlank(message = "Product name is required")
     @jakarta.validation.constraints.Size(max = 255, message = "Product name may contain up to 255 characters")
-    private String name;
+    private String productName;
 
     @jakarta.validation.constraints.Size(max = 600, message = "Description may contain up to 600 characters")
     private String description;
@@ -42,29 +42,29 @@ public class ProductRequestDto {
     public ProductRequestDto() {
     }
 
-    public ProductRequestDto(String name, String description, BigDecimal price, Category category, Integer stockQuantity) {
-        this.name = name;
+    public ProductRequestDto(String productName, String description, BigDecimal price, Category category, Integer stockQuantity) {
+        this.productName = productName;
         this.description = description;
         this.price = price;
         this.category = category;
         this.stockQuantity = stockQuantity;
     }
 
-    public ProductRequestDto(String name, String description, BigDecimal price,
+    public ProductRequestDto(String productName, String description, BigDecimal price,
                              Brand brand, Color color, Heel heel, Size size, Integer stockQuantity) {
-        this(name, description, price, Category.FASHION, stockQuantity);
+        this(productName, description, price, Category.FASHION, stockQuantity);
         this.brand = brand;
         this.color = color;
         this.heel = heel;
         this.size = size;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getDescription() {

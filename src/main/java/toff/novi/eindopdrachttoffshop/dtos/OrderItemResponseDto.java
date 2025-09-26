@@ -1,7 +1,7 @@
 package toff.novi.eindopdrachttoffshop.dtos;
 
 import toff.novi.eindopdrachttoffshop.models.OrderItem;
-import toff.novi.eindopdrachttoffshop.enums.OrderItemStatus;
+import toff.novi.eindopdrachttoffshop.enums.OrderAndItemStatus;
 
 import java.math.BigDecimal;
 
@@ -12,7 +12,7 @@ public class OrderItemResponseDto {
     private BigDecimal productPrice;
     private Integer quantity;
     private BigDecimal totalPrice;
-    private OrderItemStatus status;
+    private OrderAndItemStatus status;
     private Integer orderId;
 
     public OrderItemResponseDto() {
@@ -25,7 +25,6 @@ public class OrderItemResponseDto {
         this.quantity = orderItem.getQuantity();
         this.totalPrice = orderItem.getTotalPrice();
         this.status = orderItem.getStatus();
-        this.orderId = orderItem.getOrderId();
     }
 
     public Integer getId() {
@@ -68,11 +67,11 @@ public class OrderItemResponseDto {
         this.totalPrice = totalPrice;
     }
 
-    public OrderItemStatus getStatus() {
+    public OrderAndItemStatus getStatus() {
         return status;
     }
 
-    public void setStatus(OrderItemStatus status) {
+    public void setStatus(OrderAndItemStatus status) {
         this.status = status;
     }
 

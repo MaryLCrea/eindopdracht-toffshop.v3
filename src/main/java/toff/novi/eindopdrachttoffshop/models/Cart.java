@@ -13,7 +13,8 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "cart_id")
+    private int cart_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -38,12 +39,12 @@ public class Cart {
         this.user = user;
     }
 
-    public Integer getId() {
-        return id;
+     public Integer getId() {
+        return cart_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Integer cart_id) {
+        this.cart_id = cart_id;
     }
 
     public User getUser() {
@@ -99,7 +100,7 @@ public class Cart {
     @Override
     public String toString() {
         return "Cart{" +
-                "id=" + id +
+                "cart_id=" + cart_id +
                 ", userId=" + (user != null ? user.getId() : null) +
                 ", itemCount=" + getCartItems().size() +
                 '}';

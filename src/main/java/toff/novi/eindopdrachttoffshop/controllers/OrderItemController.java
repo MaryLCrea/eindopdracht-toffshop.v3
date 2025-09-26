@@ -2,8 +2,8 @@ package toff.novi.eindopdrachttoffshop.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import toff.novi.eindopdrachttoffshop.dtos.OrderItemRequestDto;
 import toff.novi.eindopdrachttoffshop.dtos.OrderItemResponseDto;
-import toff.novi.eindopdrachttoffshop.enums.OrderItemStatus;
 import toff.novi.eindopdrachttoffshop.services.OrderItemService;
 
 import java.util.List;
@@ -20,27 +20,29 @@ public class OrderItemController {
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderItemResponseDto> getOrderItemById(@PathVariable Integer id) {
-        OrderItemResponseDto orderItem = orderItemService.getOrderItemById(id);
-        return ResponseEntity.ok(orderItem);
+        return ResponseEntity.ok(orderItemService.getOrderItemById(id));
     }
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<OrderItemResponseDto>> getOrderItemsByUserId(@PathVariable Integer userId) {
-        List<OrderItemResponseDto> orderItems = orderItemService.getOrderItemsByUserId(userId);
-        return ResponseEntity.ok(orderItems);
+        return ResponseEntity.ok(orderItemService.getOrderItemsByUserId(userId));
     }
 
-    @GetMapping("/user/{userId}/status/{status}")
-    public ResponseEntity<List<OrderItemResponseDto>> getOrderItemsByUserIdAndStatus(
+    @PutMapping("/user/{userId}/items/{orderItemId}")
+    public ResponseEntity<OrderItemResponseDto> updateOrderItem(
             @PathVariable Integer userId,
-            @PathVariable OrderItemStatus status) {
-        List<OrderItemResponseDto> orderItems = orderItemService.getOrderItemsByUserIdAndStatus(userId, status);
-        return ResponseEntity.ok(orderItems);
+            @PathVariable Integer orderItemId,
+            @RequestBody OrderItemRequestDto requestDto) {
+
+        return ResponseEntity.ok(orderItemService.updateOrderItem(userId, orderItemId, requestDto));
     }
 
-    @GetMapping("/status/{status}")
-    public ResponseEntity<List<OrderItemResponseDto>> getOrderItemsByStatus(@PathVariable OrderItemStatus status) {
-        List<OrderItemResponseDto> orderItems = orderItemService.getOrderItemsByStatus(status);
-        return ResponseEntity.ok(orderItems);
+    @DeleteMapping("/user/{userId}/items/{orderItemId}")
+    public ResponseEntity<Void> deleteOrderItem(
+            @PathVariable Integer userId,
+            @PathVariable Integer orderItemId) {
+
+        orderItemService.deleteOrderItem(userId, orderItemId);
+        return ResponseEntity.noContent().build();
     }
 }
