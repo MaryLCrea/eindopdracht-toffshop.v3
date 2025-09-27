@@ -8,10 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.servlet.http.HttpServletRequest;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,39 +21,31 @@ public class FileController {
     @Autowired
     private FileStorageService fileStorageService;
 
-    @PostMapping("/upload")
+    @PostMapping
     public ResponseEntity<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file) {
+        Map<String, Object> response = new HashMap<>();
+
         try {
-
             if (file.isEmpty()) {
-                Map<String, Object> errorResponse = new HashMap<>();
-                errorResponse.put("error", "Geen bestand geselecteerd");
-                return ResponseEntity.badRequest().body(errorResponse);
+                response.put("error", "Geen bestand geselecteerd");
+                return ResponseEntity.badRequest().body(response);
             }
-
 
             String contentType = file.getContentType();
             if (contentType == null || !contentType.startsWith("image/")) {
-                Map<String, Object> errorResponse = new HashMap<>();
-                errorResponse.put("error", "Alleen afbeeldingen zijn toegestaan");
-                return ResponseEntity.badRequest().body(errorResponse);
+                response.put("error", "Alleen afbeeldingen toegestaan");
+                return ResponseEntity.badRequest().body(response);
             }
 
-
             if (file.getSize() > 5 * 1024 * 1024) {
-                Map<String, Object> errorResponse = new HashMap<>();
-                errorResponse.put("error", "Bestand is te groot (max 5MB)");
-                return ResponseEntity.badRequest().body(errorResponse);
+                response.put("error", "Bestand te groot (max 5MB)");
+                return ResponseEntity.badRequest().body(response);
             }
 
             String fileName = fileStorageService.storeFile(file);
 
-            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/files/download/")
-                    .path(fileName)
-                    .toUriString();
+            String fileDownloadUri = "/files/" + fileName;
 
-            Map<String, Object> response = new HashMap<>();
             response.put("fileName", fileName);
             response.put("originalName", file.getOriginalFilename());
             response.put("fileDownloadUri", fileDownloadUri);
@@ -66,28 +56,47 @@ public class FileController {
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {
-            Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("error", "Upload gefaald: " + e.getMessage());
-            return ResponseEntity.badRequest().body(errorResponse);
+            response.put("error", "Upload gefaald: " + e.getMessage());
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
+    @PostMapping("/products/{id}/upload-image")
+    public ResponseEntity<Map<String, Object>> uploadProductImage(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file) {
 
-    @GetMapping("/download/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+        Map<String, Object> response = new HashMap<>();
+
         try {
-
-            Resource resource = fileStorageService.loadFileAsResource(fileName);
-
-
-            String contentType = null;
-            try {
-                contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-            } catch (IOException ex) {
-
+            if (file.isEmpty()) {
+                response.put("error", "Geen bestand geselecteerd");
+                return ResponseEntity.badRequest().body(response);
             }
 
-            if (contentType == null) {
+            String fileName = fileStorageService.storeFile(file);
+
+            response.put("productId", id);
+            response.put("fileName", fileName);
+            response.put("message", "Bestand succesvol aan product gekoppeld");
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            response.put("error", "Upload gefaald: " + e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @GetMapping("/{fileName:.+}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+        try {
+            Resource resource = fileStorageService.loadFileAsResource(fileName);
+
+            String contentType;
+            try {
+                contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+            } catch (IOException e) {
                 contentType = "application/octet-stream";
             }
 
@@ -101,12 +110,12 @@ public class FileController {
         }
     }
 
-    @DeleteMapping("/delete/{fileName:.+}")
+    @DeleteMapping("/{fileName:.+}")
     public ResponseEntity<Map<String, Object>> deleteFile(@PathVariable String fileName) {
+        Map<String, Object> response = new HashMap<>();
+
         try {
             boolean deleted = fileStorageService.deleteFile(fileName);
-
-            Map<String, Object> response = new HashMap<>();
             if (deleted) {
                 response.put("message", "Bestand succesvol verwijderd");
                 response.put("fileName", fileName);
@@ -115,11 +124,9 @@ public class FileController {
                 response.put("error", "Bestand niet gevonden");
                 return ResponseEntity.notFound().build();
             }
-
         } catch (Exception e) {
-            Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("error", "Verwijderen gefaald: " + e.getMessage());
-            return ResponseEntity.badRequest().body(errorResponse);
+            response.put("error", "Verwijderen gefaald: " + e.getMessage());
+            return ResponseEntity.badRequest().body(response);
         }
     }
 

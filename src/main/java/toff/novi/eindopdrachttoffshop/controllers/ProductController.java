@@ -3,16 +3,12 @@ package toff.novi.eindopdrachttoffshop.controllers;
 import toff.novi.eindopdrachttoffshop.dtos.ProductRequestDto;
 import toff.novi.eindopdrachttoffshop.dtos.ProductResponseDto;
 import toff.novi.eindopdrachttoffshop.enums.*;
-import toff.novi.eindopdrachttoffshop.enums.Brand;
-import toff.novi.eindopdrachttoffshop.enums.Color;
-import toff.novi.eindopdrachttoffshop.enums.Size;
 import toff.novi.eindopdrachttoffshop.services.ProductService;
+import toff.novi.eindopdrachttoffshop.services.FileStorageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import toff.novi.eindopdrachttoffshop.services.FileStorageService;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.validation.Valid;
 
@@ -131,7 +127,6 @@ public class ProductController {
         if (brand != null && color != null && size != null) {
             products = productService.getDanceShoesByBrandColorAndSize(brand, color, size);
         } else {
-
             products = productService.getProductsByCategory(Category.FASHION);
         }
 
@@ -212,32 +207,23 @@ public class ProductController {
             @PathVariable Integer id,
             @RequestParam("file") MultipartFile file) {
 
+        Map<String, Object> response = new HashMap<>();
         try {
-            ProductResponseDto product = productService.getProductById(id);
-
             if (file.isEmpty()) {
-                Map<String, Object> errorResponse = new HashMap<>();
-                errorResponse.put("error", "Geen bestand geselecteerd");
-                return ResponseEntity.badRequest().body(errorResponse);
+                response.put("error", "Geen bestand geselecteerd");
+                return ResponseEntity.badRequest().body(response);
             }
 
-            String contentType = file.getContentType();
-            if (contentType == null || !contentType.startsWith("image/")) {
-                Map<String, Object> errorResponse = new HashMap<>();
-                errorResponse.put("error", "Alleen afbeeldingen zijn toegestaan");
-                return ResponseEntity.badRequest().body(errorResponse);
+            if (file.getContentType() == null || !file.getContentType().startsWith("image/")) {
+                response.put("error", "Alleen afbeeldingen zijn toegestaan");
+                return ResponseEntity.badRequest().body(response);
             }
 
             String fileName = fileStorageService.storeFile(file);
-
-            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/api/files/download/")
-                    .path(fileName)
-                    .toUriString();
+            String fileDownloadUri = "/files/" + fileName; // consistent met FileController
 
             ProductResponseDto updatedProduct = productService.updateProductImage(id, fileName, fileDownloadUri);
 
-            Map<String, Object> response = new HashMap<>();
             response.put("product", updatedProduct);
             response.put("fileName", fileName);
             response.put("fileDownloadUri", fileDownloadUri);
@@ -246,38 +232,33 @@ public class ProductController {
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {
-            Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("error", "Upload gefaald: " + e.getMessage());
-            return ResponseEntity.badRequest().body(errorResponse);
+            response.put("error", "Upload gefaald: " + e.getMessage());
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
     @DeleteMapping("/{id}/delete-image")
     public ResponseEntity<Map<String, Object>> deleteProductImage(@PathVariable Integer id) {
+        Map<String, Object> response = new HashMap<>();
         try {
             ProductResponseDto product = productService.getProductById(id);
 
             if (product.getImageName() != null) {
-
                 fileStorageService.deleteFile(product.getImageName());
-
 
                 ProductResponseDto updatedProduct = productService.updateProductImage(id, null, null);
 
-                Map<String, Object> response = new HashMap<>();
                 response.put("product", updatedProduct);
                 response.put("message", "Afbeelding succesvol verwijderd");
                 return ResponseEntity.ok(response);
             } else {
-                Map<String, Object> response = new HashMap<>();
                 response.put("message", "Product heeft geen afbeelding");
                 return ResponseEntity.ok(response);
             }
 
         } catch (Exception e) {
-            Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("error", "Verwijderen gefaald: " + e.getMessage());
-            return ResponseEntity.badRequest().body(errorResponse);
+            response.put("error", "Verwijderen gefaald: " + e.getMessage());
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
@@ -337,4 +318,3 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 }
-

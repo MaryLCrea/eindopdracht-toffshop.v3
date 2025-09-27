@@ -1,11 +1,11 @@
 package toff.novi.eindopdrachttoffshop.models;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import toff.novi.eindopdrachttoffshop.exceptions.CartOperationException;
 
 @Entity
 @Table(name = "carts")
@@ -39,7 +39,7 @@ public class Cart {
         this.user = user;
     }
 
-     public Integer getId() {
+    public Integer getId() {
         return cart_id;
     }
 
@@ -86,12 +86,21 @@ public class Cart {
     }
 
     public void addOrderItem(OrderItem orderItem) {
+        if (orderItem == null) {
+            throw new CartOperationException("OrderItem mag niet null zijn");
+        }
+        if (orderItems.contains(orderItem)) {
+            throw new CartOperationException("Dit item zit al in de winkelwagen");
+        }
         orderItems.add(orderItem);
         orderItem.setCart(this);
         this.updatedAt = LocalDateTime.now();
     }
 
     public void removeOrderItem(OrderItem orderItem) {
+        if (!orderItems.contains(orderItem)) {
+            throw new CartOperationException("Dit item zit niet in de winkelwagen");
+        }
         orderItems.remove(orderItem);
         orderItem.setCart(null);
         this.updatedAt = LocalDateTime.now();

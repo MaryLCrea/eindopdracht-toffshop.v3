@@ -9,6 +9,7 @@ import toff.novi.eindopdrachttoffshop.enums.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "products")
@@ -20,7 +21,7 @@ public class Product {
     private Integer id;
 
     @Column(name = "SKU", unique = true, nullable = false)
-    private String sku;
+    private String sku  = UUID.randomUUID().toString();
 
     @Column(name = "product_name", nullable = false)
     private String productName;
@@ -70,7 +71,7 @@ public class Product {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public Product(String productName, String description, BigDecimal price, Category category) {
+    public Product(String sku, String productName, String description, BigDecimal price, Category category) {
         this();
         this.sku = sku;
         this.productName = productName;
@@ -79,9 +80,9 @@ public class Product {
         this.category = category;
     }
 
-    public Product(String name, String description, BigDecimal price, Brand brand,
+    public Product(String sku, String name, String description, BigDecimal price, Brand brand,
                    Color color, Heel heel, Size size, Integer stockQuantity) {
-        this(name, description, price, Category.FASHION);
+        this(sku, name, description, price, Category.FASHION);
         this.brand = brand;
         this.color = color;
         this.heel = heel;
