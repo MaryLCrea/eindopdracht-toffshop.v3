@@ -14,6 +14,8 @@ public class OrderResponseDto {
     private List<OrderItemResponseDto> items;
     private BigDecimal totalPrice;
 
+    private String userName;
+
     public Integer getId() {
         return id;
     }
@@ -61,6 +63,10 @@ public class OrderResponseDto {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
+
 }
 
 

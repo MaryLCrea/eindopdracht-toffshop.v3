@@ -32,6 +32,13 @@ public class CartController {
         return ResponseEntity.ok(cart);
     }
 
+    @PostMapping("/user/{userId}/items")
+    public ResponseEntity<CartResponseDto> addItemsToCart(@PathVariable Integer userId,
+                                                          @Valid @RequestBody List<OrderItemRequestDto> orderItems) {
+        CartResponseDto updatedCart = cartService.addItemsToCart(userId, orderItems);
+        return ResponseEntity.ok(updatedCart);
+    }
+
     @PostMapping("/me/items")
     public ResponseEntity<CartResponseDto> addItemsToMyCart(
             @AuthenticationPrincipal MyUserDetails principal,

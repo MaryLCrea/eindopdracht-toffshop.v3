@@ -14,7 +14,7 @@ public class HomeController {
     public Map<String, Object> home() {
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Welkom bij Toffshop Webshop API!");
-        response.put("version", "1.0");
+        response.put("version", "3.0");
         response.put("timestamp", LocalDateTime.now());
         response.put("endpoints head categories", Map.of(
 

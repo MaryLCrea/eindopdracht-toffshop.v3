@@ -56,8 +56,8 @@ INSERT INTO orders (id, user_id, status_order, created_at, updated_at)
 VALUES
     (1001, 1,  'ORDERED', '2025-01-12 12:00:00', '2025-01-12 12:05:00'),
     (1002, 1,  'ORDERED', '2025-01-13 12:00:00', '2025-01-16 12:05:00'),
-    (1003, 1,  'ORDERED', '2025-01-14 12:00:00', '2025-01-16 12:05:00'),
-    (1004, 1,  'ORDERED', '2025-01-15 12:00:00', '2025-01-16 12:05:00');
+    (1003, 2,  'ORDERED', '2025-01-14 12:00:00', '2025-01-16 12:05:00'),
+    (1004, 2,  'ORDERED', '2025-01-15 12:00:00', '2025-01-16 12:05:00');
 
 -- Contacts
 INSERT INTO contacts (name, email, subject, message, created_at, is_read)
